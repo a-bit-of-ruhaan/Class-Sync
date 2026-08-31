@@ -48,39 +48,5 @@ ClassSync features a premium, customized interface built directly onto modern la
 ---
 
 
----
-
-## 🚀 Installation & Local Environment Setup
-
-Follow these quick steps to set up and run ClassSync locally:
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com
-cd ClassSync
-```
-
-### 2. Configure a Virtual Environment
-```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install Required Packages
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Fire up the Application
-```bash
-streamlit run app.py
-```
-
----
 
 
