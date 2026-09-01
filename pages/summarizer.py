@@ -77,8 +77,108 @@ with col_mid:
 
 #there we will get the summarized version of the uploaded document and also we can ask questions about the document
 with col_right:
-    st.markdown('<div><h2>Summarizer</h2></div>', unsafe_allow_html=True)
+   with col_right:
+
+    st.markdown(
+        '<div><h2>SMART SUM</h2></div>',
+        unsafe_allow_html=True
+    )
+
     st.markdown('<div class="chat_box">', unsafe_allow_html=True)
+
+    # --------------------------------------------------
+    # No document uploaded
+    # --------------------------------------------------
+
     if "extracted_text" not in st.session_state:
-        st.chat_message("user").markdown("Hello! I'm here to help you summarize your document. Please provide the text you'd like me to summarize.")
-     
+
+        st.chat_message("assistant").markdown(
+            """
+            Hello! I'm **SMART SUM**.
+
+            Upload a document on the left and I can:
+
+            - Summarize the document
+            - Answer questions about it
+            - Explain difficult topics
+            - Find important information
+            """
+        )
+
+    # --------------------------------------------------
+    # Document uploaded
+    # --------------------------------------------------
+
+    else:
+
+        # Generate summary button
+        if st.button(
+            "Generate Summary",
+            use_container_width=True
+        ):
+
+            with st.spinner("Analyzing your document..."):
+
+                summary = summarizer_text(
+                    text="""
+                    Summarize the uploaded document.
+
+                    Include:
+                    - A brief overview
+                    - Main topics
+                    - Important points
+                    - Important facts, dates and numbers
+                    - Main conclusions
+
+                    Only use information from the uploaded document.
+                    """,
+
+                    document_text=st.session_state.extracted_text
+                )
+
+            st.session_state.summary = summary
+
+
+        # --------------------------------------------------
+        # Show summary if generated
+        # --------------------------------------------------
+
+        if "summary" in st.session_state:
+
+            with st.chat_message("assistant"):
+
+                st.markdown(
+                    st.session_state.summary
+                )
+
+
+        # --------------------------------------------------
+        # Chat input
+        # --------------------------------------------------
+
+        user_question = st.chat_input(
+            "Ask something about your document..."
+        )
+
+
+        if user_question:
+
+            # Show user question
+            with st.chat_message("user"):
+
+                st.markdown(user_question)
+
+
+            # Send question + document to Gemini
+            with st.chat_message("assistant"):
+
+                with st.spinner("Thinking..."):
+
+                    answer = summarizer_text(
+                        text=user_question,
+                        document_text=st.session_state.extracted_text
+                    )
+
+                st.markdown(answer)
+
+    st.markdown('</div>', unsafe_allow_html=True)

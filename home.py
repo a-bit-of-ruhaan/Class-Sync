@@ -23,7 +23,8 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.subheader("Assignments")
     st.write("View, submit, and track your assignments.")
-    st.button("Go to Assignments", use_container_width=True)
+    if st.button("Get Summary of Your Files", use_container_width=True):
+     st.switch_page("pages/summarizer.py")
 
 
     with col2:
