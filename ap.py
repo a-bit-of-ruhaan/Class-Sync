@@ -56,3 +56,4 @@ with col3:
 with col4:
     if st.button("AI Summarize", use_container_width=True):
         st.info("AI Summarize section opened.")
+            
