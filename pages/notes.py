@@ -45,7 +45,27 @@ with col_find:
 st.markdown('<div class="image_grid">', unsafe_allow_html=True)
 st.markdown('<h2>Recently Uploadedd Notes</h2>', unsafe_allow_html=True)
 
+# Display uploaded images in a 4-column grid
+notes_dir = path.Path("notes")
+if notes_dir.exists():
+    image_files = [f for f in notes_dir.iterdir() if f.is_file() and f.suffix.lower() in ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp']]
+    
+    if image_files:
+        # Sort by modification time (newest first)
+        image_files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+        
+        # Create grid with 4 columns
+        cols_per_row = 4
+        for i in range(0, len(image_files), cols_per_row):
+            cols = st.columns(cols_per_row)
+            for col_idx, col in enumerate(cols):
+                img_idx = i + col_idx
+                if img_idx < len(image_files):
+                    with col:
+                        st.image(str(image_files[img_idx]), caption=image_files[img_idx].name, use_container_width=True)
+    else:
+        st.info("No images uploaded yet.")
+else:
+    st.info("Notes directory not found.")
 
-
-
-  
+st.markdown('</div>', unsafe_allow_html=True)
