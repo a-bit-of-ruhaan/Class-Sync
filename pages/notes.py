@@ -8,6 +8,9 @@ st.set_page_config(
     layout="wide"
 )
 
+with open("styles/notes.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.markdown('<div class="container_c">', unsafe_allow_html=True)
 st.markdown('<h1>Get Your Notes Here</h1>', unsafe_allow_html=True)
 st.markdown('<p>Here you can find your notes for your classes. You can also upload your notes and view them here.</p>', unsafe_allow_html=True)
@@ -43,7 +46,7 @@ with col_find:
         st.info("No notes found. Please upload your notes first.")          
 
 st.markdown('<div class="image_grid">', unsafe_allow_html=True)
-st.markdown('<h2>Recently Uploadedd Notes</h2>', unsafe_allow_html=True)
+st.markdown('<h2>Recently Uploaded Notes</h2>', unsafe_allow_html=True)
 
 # Display uploaded images in a 4-column grid
 notes_dir = path.Path("notes")

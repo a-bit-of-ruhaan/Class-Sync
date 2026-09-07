@@ -10,6 +10,9 @@ st.set_page_config(
     layout="wide"
 )
 
+with open("styles/summarizer.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 #title and info about classSync
 st.markdown('<h1>Summarize Your Notes</h1>', unsafe_allow_html=True)
 st.markdown("""<p>Welcome to the Class Sync Summarizer! This tool allows you to input text and receive a concise summary of the content.
