@@ -1,0 +1,39 @@
+.stApp {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(137, 25, 25, 0.28), transparent 38%),
+        linear-gradient(135deg, #1a0505 0%, #0d0202 100%);
+    color: #f5e6e6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+section[data-testid="stSidebar"] {
+    background: rgba(18, 3, 3, 0.88) !important;
+    border-right: 1px solid #3d0c0c;
+}
+
+h1,
+h2,
+h3 {
+    color: #ff6666 !important;
+}
+
+p,
+.stMarkdown {
+    color: #c9a5a5;
+}
+
+div[data-testid="stColumn"],
+.about_container {
+    background: rgba(36, 9, 9, 0.6);
+    border: 1px solid rgba(134, 35, 35, 0.58);
+    border-radius: 14px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(14px);
+}
+
+.about_container {
+    margin: 4rem auto;
+    max-width: 760px;
+    padding: 2.5rem;
+    text-align: center;
+}

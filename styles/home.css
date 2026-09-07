@@ -1,0 +1,86 @@
+
+    /* Main app background and typography */
+    .stApp {
+        background: linear-gradient(135deg, #1a0505 0%, #0d0202 100%);
+        color: #f5e6e6;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Sidebar minimal dark styling */
+    section[data-testid="stSidebar"] {
+        background-color: #120303 !important;
+        border-right: 1px solid #3d0c0c;
+    }
+
+    /* Header styling with a subtle glow */
+    .header {
+        text-align: center;
+        padding: 2rem 0 3rem 0;
+    }
+    .header h1 {
+        color: #ff4d4d;
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
+    }
+    .header p {
+        color: #a38585;
+        font-size: 1.1rem;
+    }
+
+   /* Update these inside your main home file */
+div[data-testid="stColumn"] {
+    background: rgba(30, 8, 8, 0.45) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 77, 77, 0.12) !important;
+    border-radius: 16px !important;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+div[data-testid="stColumn"]:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 77, 77, 0.5) !important;
+}
+.content_container {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(40, 10, 10, 0.35) !important;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 77, 77, 0.15) !important;
+    border-radius: 16px;
+    text-align: center;
+}
+
+    /* Typography inside columns */
+    h3 {
+        color: #ff6666 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Minimal Button Styling */
+    .stButton > button {
+        background: linear-gradient(90deg, #800000 0%, #b30000 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 600 !important;
+        transition: opacity 0.2s ease !important;
+    }
+    .stButton > button:hover {
+        opacity: 0.9 !important;
+        box-shadow: 0 0 15px rgba(179, 0, 0, 0.4) !important;
+    }
+
+       
+    .content_box h2 {
+        color: #ff4d4d !important;
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+        margin: 0;
+    }
+  

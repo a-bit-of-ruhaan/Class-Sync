@@ -1,0 +1,119 @@
+/* Main page dark background & font setup */
+.stApp {
+    background: linear-gradient(135deg, #1a0505 0%, #0d0202 100%);
+    color: #f5e6e6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Header Banner Container (.container_c) */
+.container_c {
+    text-align: center;
+    padding: 2.5rem 1rem 3rem 1rem;
+    background: linear-gradient(180deg, #1e0606 0%, transparent 100%);
+    border-bottom: 1px solid #3d0c0c;
+    margin-bottom: 2.5rem;
+    border-radius: 0 0 16px 16px;
+}
+.container_c h1 {
+    color: #ff4d4d;
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.15);
+}
+.container_c p {
+    color: #a38585;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Section Headings */
+h3 {
+    color: #ff6666 !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem !important;
+}
+
+/* Form Upload & Finder Columns styling wrapper */
+/* Update these inside your notes styling file */
+div[data-testid="stColumn"] {
+    background: rgba(30, 8, 8, 0.45) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 77, 77, 0.12) !important;
+    border-radius: 16px !important;
+    padding: 1.75rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+}
+
+
+/* File Uploader Box Styling */
+div[data-testid="stFileUploader"] {
+    background-color: #0d0202 !important;
+    border: 1px dashed #5e1414 !important;
+    border-radius: 8px !important;
+    padding: 10px;
+}
+div[data-testid="stFileUploader"]:hover {
+    border-color: #ff4d4d !important;
+}
+
+/* Select Box & Dropdowns styling */
+div[data-baseweb="select"] > div {
+    background-color: #0d0202 !important;
+    border-color: #5e1414 !important;
+    color: #f5e6e6 !important;
+}
+
+/* Success Messages Alerts */
+div[data-testid="stNotification"] {
+    background-color: #260a0a !important;
+    border: 1px solid #661a1a !important;
+    color: #ff9999 !important;
+}
+
+/* Recent Uploads Bottom Container (.imageGrid) */
+.imageGrid div[data-testid="stColumn"] {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 77, 77, 0.1) !important;
+    backdrop-filter: blur(4px) !important;
+    border-radius: 10px;
+    padding: 0.75rem;
+    transition: all 0.2s ease;
+}
+.imageGrid div[data-testid="stColumn"]:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 77, 77, 0.6) !important;
+    background: rgba(255, 77, 77, 0.03) !important;
+}
+
+.imageGrid h2 {
+    color: #ff4d4d !important;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+/* Image Grid Cards (The 4-column layout inside the loop) */
+.imageGrid div[data-testid="stColumn"] {
+    background-color: #120303;
+    border: 1px solid #2d0808;
+    border-radius: 10px;
+    padding: 0.75rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.imageGrid div[data-testid="stColumn"]:hover {
+    transform: translateY(-4px);
+    border-color: #ff3333;
+}
+
+/* Image captions text adjustment */
+div[data-testid="stImageCaption"] {
+    color: #a38585 !important;
+    font-size: 0.85rem !important;
+    text-align: center;
+    margin-top: 0.5rem;
+}
