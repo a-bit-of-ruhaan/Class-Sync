@@ -5,6 +5,32 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+  .header_main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem 0 3rem 0;
+    }
+    .header_main h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff4d4d;
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
+    }
+    .header_main p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a38585;
+        font-size: 1.1rem;
+    }
+
 /* Header Banner Container (.container_c) */
 .container_c {
     text-align: center;

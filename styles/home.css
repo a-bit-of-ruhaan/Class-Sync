@@ -13,11 +13,17 @@
     }
 
     /* Header styling with a subtle glow */
-    .header {
+    .header_main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
         padding: 2rem 0 3rem 0;
     }
-    .header h1 {
+    .header_main h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #ff4d4d;
         font-size: 3rem;
         font-weight: 800;
@@ -25,19 +31,22 @@
         margin-bottom: 0.5rem;
         text-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
     }
-    .header p {
+    .header_main p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #a38585;
         font-size: 1.1rem;
     }
 
-   /* Update these inside your main home file */
-div[data-testid="stColumn"] {
+
+div[data-testid="stHorizontalBlock"] > div:not(:nth-child(2)) [data-testid="stVerticalBlock"] {
     background: rgba(30, 8, 8, 0.45) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(255, 77, 77, 0.12) !important;
     border-radius: 16px !important;
-    padding: 1.5rem;
+    padding: 3rem;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
