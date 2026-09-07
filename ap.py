@@ -26,8 +26,8 @@ st.markdown("""
 .my-box {
     background: linear-gradient(
         135deg,
-        #163B32,
-        #235347
+        #051F20,
+        #0B2826,
     );
     border: 1px solid #8EB69B;
     border-radius: 15px;
@@ -51,7 +51,7 @@ st.markdown("""
     background: linear-gradient(
         135deg,
         #235347,
-        #163B32
+        #051F20
     );
     color: #DAF1DE;
     border: 1px solid #8EB69B;
@@ -64,15 +64,15 @@ st.markdown("""
     background: linear-gradient(
         135deg,
         #8EB69B,
-        #235347
+        #163B32
     );
-    color: #051F20;
+    color: #235347;
     border-color: #DAF1DE;
 }
 
 /* Search box / text inputs */
 .stTextInput input {
-    background-color: #0B2826;
+    background-color: #051F20;
     color: #DAF1DE;
     border: 1px solid #8EB69B;
     border-radius: 10px;
