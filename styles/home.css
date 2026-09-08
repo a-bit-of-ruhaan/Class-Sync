@@ -13,11 +13,22 @@
     }
 
     /* Header styling with a subtle glow */
-    .header {
+    .header_main {
+        align-items: center;
+        justify-content: center;
+        background-color: #3d0c0c85 !important; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
         padding: 2rem 0 3rem 0;
+        margin-bottom: 2rem;
+       
     }
-    .header h1 {
+    .header_main h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #ff4d4d;
         font-size: 3rem;
         font-weight: 800;
@@ -25,19 +36,22 @@
         margin-bottom: 0.5rem;
         text-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
     }
-    .header p {
+    .header_main p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #a38585;
         font-size: 1.1rem;
     }
 
-   /* Update these inside your main home file */
-div[data-testid="stColumn"] {
+
+div[data-testid="stHorizontalBlock"] > div:not(:nth-child(2)) [data-testid="stVerticalBlock"] {
     background: rgba(30, 8, 8, 0.45) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(255, 77, 77, 0.12) !important;
     border-radius: 16px !important;
-    padding: 1.5rem;
+    padding: 3rem;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
@@ -83,4 +97,142 @@ div[data-testid="stColumn"]:hover {
         letter-spacing: 0.05em;
         margin: 0;
     }
+
+
+    .fact_box {
+        position: relative;
+        overflow: hidden;
+        margin-top: 2rem;
+        padding: 2.2rem 2.4rem;
+        background: #100202 !important;
+        border: 1px solid rgba(255, 105, 105, 0.28);
+        border-radius: 18px;
+        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.48), inset 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .fact_box::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #ff4d4d, #ffb36b, #ff4d4d);
+        content: "";
+    }
+
+    .fact_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 1.3rem;
+    }
+
+    .fact_kicker {
+        color: #ff9b78;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+    }
+
+    .fact_header h3 {
+        margin: 0.25rem 0 0.2rem;
+        color: #fff3ed !important;
+        font-size: 2rem;
+        letter-spacing: -0.02em;
+    }
+
+    .fact_header p {
+        margin: 0;
+        color: #c99c94;
+        font-size: 0.9rem;
+    }
+
+    .fact_list {
+        overflow: hidden;
+        margin-top: -1px;
+        padding: 0 2.4rem 0rem;
+        background: #100202 !important;
+        border: 1px solid rgba(255, 105, 105, 0.28);
+        border-top: 0;
+        border-radius: 0 0 18px 18px;
+    }
+  .fact_list:hover {
+        
+        background: #521212ee !important;
+
+  }
+     
+
+
+    .fact_item {
+        display: grid;
+        grid-template-columns: 3.5rem 1fr 1.5rem;
+        align-items: center;
+        gap: 1rem;
+        min-height: 6rem;
+        padding: 0.75rem 1rem;
+        background: #180404 !important;
+        border-top: 1px solid rgba(255, 146, 125, 0.16);
+        border-radius: 8px;
+        animation: fact-reveal 0.45s ease both;
+    }
+
+    .fact_item:hover {
+        
+        background: #521212ee !important;
+
+  }
+
+    .fact_item:nth-child(2) { animation-delay: 0.06s; }
+    .fact_item:nth-child(3) { animation-delay: 0.12s; }
+    .fact_item:nth-child(4) { animation-delay: 0.18s; }
+
+    .fact_index {
+        color: #ff765f;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+    }
+
+    .fact_item p {
+        margin: 0;
+        color: #f8e8e2;
+        font-size: 1.15rem;
+        line-height: 1.6;
+    }
+
+    .fact_arrow {
+        color: #ff765f;
+        font-size: 1.3rem;
+        font-weight: 300;
+        text-align: right;
+    }
+
+    @keyframes fact-reveal {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    body,
+    .stApp {
+    /* Sets the path to your image file */
+    background-image: url('images/backg.png');
+
+    /* Prevents the image from repeating like a grid/tiles */
+    background-repeat: no-repeat;
+
+    /* Scales the image to cover the entire screen while maintaining proportions */
+    background-size: cover;
+
+    /* Centers the image horizontally and vertically */
+    background-position: center;
+
+    /* Optional: Keeps the background fixed in place while content scrolls */
+    background-attachment: fixed;
+
+    /* Fallback color in case the image fails to load */
+    background-color: #f4f4f4;
+}
+
   
