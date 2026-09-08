@@ -3,6 +3,7 @@ import base64
 import streamlit as st
 import pathlib as path
 import html
+from backend.auth import require_auth
 from backend.ai_api import summarizer_text
 
 from backend.note_summarizer import extract_text_from_pdf, extract_text_from_docx
@@ -11,6 +12,8 @@ st.set_page_config(
     page_title="Summarizer",
     layout="wide"
 )
+
+require_auth()
 
 with open("styles/summarizer.css") as f:
     page_css = f.read()

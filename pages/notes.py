@@ -4,11 +4,15 @@ import streamlit as st
 import pathlib as path
 import os
 
+from backend.auth import require_auth
+
 
 st.set_page_config(
     page_title="NOTES",
     layout="wide"
 )
+
+require_auth()
 
 with open("styles/notes.css") as f:
     page_css = f.read()

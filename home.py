@@ -5,6 +5,7 @@ from anyio import Path
 
 import streamlit as st
 
+from backend.auth import log_out, require_auth
 from backend.fact import generate_random_facts
 
 
@@ -15,22 +16,49 @@ st.set_page_config(
 
 )
 
+require_auth()
+
+with st.sidebar:
+    user_name = st.session_state.get("user_name", "Classync member")
+    user_username = st.session_state.get("user_username", "member")
+    initials = "".join(part[0] for part in user_name.split()[:2]).upper() or "C"
+    st.markdown(
+        f'''<div class="account_card">
+            <div class="account_avatar">{initials}</div>
+            <div><span class="account_label">SIGNED IN</span>
+            <strong>{user_name}</strong><small>@{user_username}</small></div>
+        </div>''',
+        unsafe_allow_html=True,
+    )
+    st.markdown('<div class="sidebar_divider"></div>', unsafe_allow_html=True)
+    if st.button("Log out", icon=":material/logout:", use_container_width=True):
+        log_out()
+        st.switch_page("pages/login.py")
+
 # injecting css
 with open("styles/home.css") as f:
     page_css = f.read()
 with open("images/backg.png", "rb") as f:
     background_image = base64.b64encode(f.read()).decode("ascii")
+with open("images/logo.png", "rb") as f:
+    logo_image = base64.b64encode(f.read()).decode("ascii")
 st.markdown(
     f"<style>{page_css.replace('images/backg.png', f'data:image/png;base64,{background_image}')}</style>",
     unsafe_allow_html=True,
 )
-
 #header of the page
 
-st.markdown("""<div class="header_main">
-                <h1>Welcome to Classync</h1>
-                <p>Your AI-powered study companion</p>
-            </div>""", unsafe_allow_html=True)
+st.markdown(
+    f"""<header class="header_main">
+                <img class="brand_logo" src="data:image/png;base64,{logo_image}" alt="ClassSync logo">
+                <div class="header_copy">
+                    <span class="header_kicker">YOUR LEARNING SPACE</span>
+                    <h1>Learn smarter, together.</h1>
+                    <p>Your AI-powered study companion</p>
+                </div>
+            </header>""",
+    unsafe_allow_html=True,
+)
 
 #sidebar configuration
 
