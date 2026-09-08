@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+.stApp {
+    background: #0a111b;
+    color: #f8f4ef;
+    font-family: 'DM Sans', sans-serif;
+}
+
+[data-testid="stHeader"], [data-testid="stSidebar"], [data-testid="stDecoration"] {
+    display: none;
+}
+
+.main .block-container {
+    max-width: 1180px;
+    padding: 2rem 2rem 3rem;
+}
+
+.login_intro {
+    min-height: min(720px, calc(100vh - 5rem));
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+}
+
+.login_panel {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.login_intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(2rem, 6vw, 5rem);
+    border-radius: 28px 0 0 28px;
+    background: linear-gradient(145deg, rgba(18, 31, 45, 0.86), rgba(20, 12, 25, 0.45));
+    backdrop-filter: blur(18px);
+}
+
+.login_logo {
+    width: min(360px, 80%);
+    filter: drop-shadow(0 14px 25px rgba(255, 74, 95, 0.25));
+}
+
+.login_eyebrow {
+    display: inline-block;
+    margin: 0 0 1rem;
+    color: #ff927e;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.login_intro h1 {
+    max-width: 520px;
+    margin: 0;
+    color: #fff8f1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+}
+
+.login_intro p {
+    max-width: 460px;
+    margin: 1.5rem 0 0;
+    color: #b4c0ca;
+    font-size: 1.05rem;
+    line-height: 1.65;
+}
+
+.login_note {
+    color: #748391;
+    font-size: 0.82rem;
+}
+
+.login_panel {
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(2rem, 5vw, 4.5rem) 1rem;
+}
+
+.login_panel h2 {
+    margin: 0;
+    color: #fff8f1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+}
+
+.login_panel > p {
+    margin: 0.45rem 0 1.8rem;
+    color: #8d9aa6;
+}
+
+div[data-testid="stVerticalBlock"]:has(.login_panel_anchor) {
+    min-height: 0;
+    padding: 0;
+}
+
+.login_panel_anchor {
+    display: none;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) > div[data-testid="stColumn"]:nth-child(2) {
+    min-height: 0;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 0 28px 28px 0;
+    background: rgba(7, 12, 20, 0.6);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(18px);
+}
+
+div[data-testid="stRadio"] > label {
+    display: none;
+}
+
+div[data-testid="stRadio"] div[role="radiogroup"] {
+    gap: 0.35rem;
+    padding: 0.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+div[data-testid="stRadio"] div[role="radiogroup"] label {
+    flex: 1;
+    justify-content: center;
+    color: #8795a2;
+}
+
+div[data-testid="stRadio"] div[role="radiogroup"] label[data-checked="true"] {
+    border-radius: 7px;
+    background: #f05b69;
+    color: #fff;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) [data-testid="stForm"] {
+    border: 0;
+    padding: 0;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) [data-testid="stFormSubmitButton"] button {
+    min-height: 3rem;
+    margin-top: 0.65rem;
+    border: 0;
+    border-radius: 9px;
+    background: #f05b69;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(240, 91, 105, 0.2);
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) [data-testid="stFormSubmitButton"] button:hover {
+    border-color: #ff8490;
+    background: #ff6b78;
+    color: #fff;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) input {
+    border-color: rgba(255, 255, 255, 0.14);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) [data-testid="stAlert"] {
+    border-radius: 9px;
+}
+
+@media (max-width: 760px) {
+    .main .block-container {
+        padding: 0;
+    }
+
+    .login_intro {
+        min-height: 360px;
+        border-radius: 0;
+        padding: 2rem 1.5rem;
+    }
+
+    .login_logo {
+        width: 270px;
+    }
+
+    .login_intro h1 {
+        font-size: 2.6rem;
+    }
+
+    .login_panel {
+        min-height: auto;
+        padding: 2rem 1.5rem 3rem;
+        margin-left: 0;
+        border-radius: 0;
+        border-top: 0;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    div[data-testid="stVerticalBlock"]:has(.login_panel_anchor) {
+        min-height: auto;
+        padding: 0;
+    }
+
+    div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) > div[data-testid="stColumn"]:nth-child(2) {
+        min-height: auto;
+        border-radius: 0;
+    }
+}

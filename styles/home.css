@@ -11,37 +11,116 @@
         background-color: #120303 !important;
         border-right: 1px solid #3d0c0c;
     }
+    [data-testid="stSidebarNav"] {
+        display: none !important;
+    }
+    .account_card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.8rem;
+        border: 1px solid rgba(255, 146, 126, 0.24);
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(240, 91, 105, 0.2), rgba(30, 8, 8, 0.5));
+    }
+    .account_avatar {
+        display: grid;
+        width: 2.5rem;
+        height: 2.5rem;
+        flex: 0 0 2.5rem;
+        place-items: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff927e, #f05b69);
+        color: #26070a;
+        font-weight: 800;
+    }
+    .account_card strong,
+    .account_card small,
+    .account_label {
+        display: block;
+    }
+    .account_card strong { color: #fff3ed; font-size: 0.95rem; }
+    .account_card small { color: #c99c94; font-size: 0.78rem; }
+    .account_label { color: #ff9b78; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.14em; }
+    .sidebar_divider { height: 1px; margin: 1rem 0; background: rgba(255, 146, 126, 0.16); }
+    section[data-testid="stSidebar"] .stButton > button {
+        border: 1px solid rgba(255, 146, 126, 0.22) !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        color: #ffd8ce !important;
+    }
 
     /* Header styling with a subtle glow */
     .header_main {
-        align-items: center;
-        justify-content: center;
-        background-color: #3d0c0c95 !important; 
         display: flex;
+        flex-direction: row;
         align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 2rem 0 3rem 0;
-        margin-bottom: 2rem;
-       
+        justify-content: flex-start;
+        gap: 2.5rem;
+        max-width: 980px;
+        margin: 0 auto 2.5rem;
+        padding: 1.15rem 2.25rem;
+        background: rgba(35, 7, 9, 0.58);
+        border: 1px solid rgba(255, 126, 126, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), inset 0 1px rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+    .brand_logo {
+        display: block;
+        flex: 0 0 auto;
+        width: min(360px, 34vw);
+        height: auto;
+        filter: drop-shadow(0 8px 18px rgba(255, 77, 77, 0.24));
+    }
+    .header_copy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border-left: 1px solid rgba(255, 155, 120, 0.3);
+        padding-left: 2.5rem;
+    }
+    .header_kicker {
+        color: #ff9b78;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
     }
     .header_main h1 {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ff4d4d;
-        font-size: 3rem;
+        color: #fff3ed;
+        font-size: clamp(1.65rem, 3vw, 2.35rem);
         font-weight: 800;
-        letter-spacing: -0.05em;
-        margin-bottom: 0.5rem;
+        letter-spacing: -0.04em;
+        margin: 0.45rem 0 0.35rem;
         text-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
     }
     .header_main p {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #a38585;
-        font-size: 1.1rem;
+        color: #d3aaa2;
+        font-size: 1.05rem;
+        margin: 0;
+    }
+    @media (max-width: 600px) {
+        .header_main {
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.35rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0.75rem 1.25rem;
+            border-radius: 16px;
+        }
+        .brand_logo {
+            width: min(340px, 92vw);
+        }
+        .header_copy {
+            align-items: center;
+            border-left: 0;
+            border-top: 1px solid rgba(255, 155, 120, 0.3);
+            padding: 0.85rem 0 0;
+            width: 100%;
+        }
+        .header_main p {
+            font-size: 0.95rem;
+        }
     }
 
 
