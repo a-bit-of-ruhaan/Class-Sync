@@ -16,7 +16,7 @@
     .header_main {
         align-items: center;
         justify-content: center;
-        background-color: #3d0c0c85 !important; 
+        background-color: #3d0c0c95 !important; 
         display: flex;
         align-items: center;
         justify-content: center;
@@ -150,7 +150,7 @@ div[data-testid="stColumn"]:hover {
 
     .fact_list {
         overflow: hidden;
-        margin-top: -1px;
+        margin-top: 5px;
         padding: 0 2.4rem 0rem;
         background: #100202 !important;
         border: 1px solid rgba(255, 105, 105, 0.28);
@@ -158,6 +158,7 @@ div[data-testid="stColumn"]:hover {
         border-radius: 0 0 18px 18px;
     }
   .fact_list:hover {
+
         
         background: #521212ee !important;
 
@@ -176,9 +177,11 @@ div[data-testid="stColumn"]:hover {
         border-top: 1px solid rgba(255, 146, 125, 0.16);
         border-radius: 8px;
         animation: fact-reveal 0.45s ease both;
+        margin-bottom: 0.5rem;
     }
 
     .fact_item:hover {
+        
         
         background: #521212ee !important;
 

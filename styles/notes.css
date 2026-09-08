@@ -6,11 +6,13 @@
 }
 
   .header_main {
+        background-color: #3d0c0c95 !important;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         padding: 2rem 0 3rem 0;
+        margin-bottom: 2rem;
     }
     .header_main h1 {
         display: flex;
