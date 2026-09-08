@@ -7,11 +7,13 @@
 
 /* Global Heading Adjustments */
 h1 {
+    text-align: center;
+    background-color: #3d0c0c95 !important;
     color: #ff4d4d;
     font-size: 2.8rem;
     font-weight: 800;
     letter-spacing: -0.04em;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     text-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
 }
 p {

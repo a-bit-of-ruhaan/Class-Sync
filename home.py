@@ -114,3 +114,14 @@ for index, fact in enumerate(st.session_state.home_facts, start=1):
 
 st.markdown('</div></div>', unsafe_allow_html=True)
 
+st.markdown(
+    '<div class="about_cta">'
+    '<span class="fact_kicker">THE PEOPLE BEHIND CLASSYNC</span>'
+    '<h2>Wanna Know More About Developers</h2>'
+    '</div>',
+    unsafe_allow_html=True,
+)
+
+if st.button("About Us", use_container_width=True, key="about_us"):
+    st.switch_page("pages/about.py")
+
