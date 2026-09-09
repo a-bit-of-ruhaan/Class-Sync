@@ -57,7 +57,7 @@ Class Sync/
 │   ├── note.png               # Notes feature artwork
 │   └── summarize.png          # Summarizer feature artwork
 ├── styles/                    # Page-specific CSS files
-├── notes/                     # Uploaded note images
+├── notes/                     # Per-user uploaded note images
 └── README.md
 ```
 
@@ -124,7 +124,8 @@ The Gemini integration requires `GEMINI_API_KEY` to be available through `.env`.
 
 ## Data and Privacy Notes
 
-- Uploaded note images are saved in the local `notes/` directory.
+- Uploaded note images are saved in a username-scoped local directory under `notes/<username>/`.
+- Existing files placed directly in `notes/` are legacy files and are not shown in user workspaces.
 - User accounts are saved in the local SQLite database.
 - Uploaded document text is held in Streamlit session state while the user works with it.
 - Documents and notes are not automatically deleted by the application.
@@ -159,6 +160,10 @@ The application uses Streamlit session state. Confirm that the app is running as
 ### Uploaded files are not readable
 
 Confirm that the file is a valid PDF, DOCX, or UTF-8 text file. Scanned PDFs may require OCR before their text can be extracted.
+
+### Gemini requests fail
+
+The summarizer and fact generator catch API failures and display an in-app error. Check `GEMINI_API_KEY`, network access, model availability, and account quota.
 
 ## Development Notes
 

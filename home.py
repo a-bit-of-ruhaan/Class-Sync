@@ -153,3 +153,7 @@ st.markdown(
 if st.button("About Us", use_container_width=True, key="about_us"):
     st.switch_page("pages/about.py")
 
+#footer 
+st.markdown("""<div class="footer">
+            <p>&copy; 2023 ClassSync. All rights reserved.</p>
+            </div>""", unsafe_allow_html=True)

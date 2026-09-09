@@ -129,3 +129,10 @@ def log_out():
     st.session_state.pop("user_email", None)
     st.session_state.pop("user_name", None)
     st.session_state.pop("user_username", None)
+
+
+def get_user_notes_directory():
+    username = st.session_state.get("user_username", "member")
+    notes_directory = Path("notes") / username
+    notes_directory.mkdir(parents=True, exist_ok=True)
+    return notes_directory

@@ -341,4 +341,15 @@ div[data-testid="stColumn"]:hover {
     background-color: #f4f4f4;
 }
 
+.footer {
+    justify-content: center;
+    align-items: center;
+    background-color: #120303;
+    color: #c99c94;
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 77, 77, 0.2);
+    font-size: 0.85rem;
+    height: 3rem;   
+}
   

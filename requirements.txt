@@ -1,0 +1,8 @@
+streamlit
+anyio
+python-dotenv
+google-genai
+pydantic
+PyPDF2
+python-docx
+Pillow
