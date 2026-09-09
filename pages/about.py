@@ -37,7 +37,7 @@ st.html(
 							<div class="member_info">
 								<span class="member_role">TEAM LEADER</span>
 								<h2>Ruhaan</h2>
-								<a class="portfolio_button" href="https://your-portfolio-link.com/ruhaan" target="_blank" rel="noopener noreferrer">View portfolio <span aria-hidden="true">↗</span></a>
+								<a class="portfolio_button" href="https://a-bit-of-ruhaan.github.io/My-Portfolio/" target="_blank" rel="noopener noreferrer">View portfolio <span aria-hidden="true">↗</span></a>
 								<p>Ruhaan leads Classync with a focus on useful learning tools and a warm, human experience. He keeps the team moving from concept to working product.</p>
 								<span class="member_tag">VISION &amp; DIRECTION</span>
 							</div>
@@ -51,7 +51,7 @@ st.html(
 				<div class="member_info">
 					<span class="member_role">MEMBER 01</span>
 					<h2>Ashish</h2>
-					<a class="portfolio_button" href="https://your-portfolio-link.com/ashish" target="_blank" rel="noopener noreferrer">View portfolio <span aria-hidden="true">↗</span></a>
+					<a class="portfolio_button" href="#" target="_blank" rel="noopener noreferrer">View portfolio <span aria-hidden="true">↗</span></a>
 					<p>Ashish brings a practical eye for clean experiences and thoughtful details. He enjoys turning useful ideas into features that feel simple to use.</p>
 					<span class="member_tag">PRODUCT THINKER</span>
 				</div>
@@ -65,7 +65,7 @@ st.html(
 				<div class="member_info">
 					<span class="member_role">MEMBER 02</span>
 					<h2>Vansh</h2>
-					<a class="portfolio_button" href="https://your-portfolio-link.com/vansh" target="_blank" rel="noopener noreferrer">View portfolio <span aria-hidden="true">↗</span></a>
+					<a class="portfolio_button" href="#" target="_blank" rel="noopener noreferrer">View portfolio <span aria-hidden="true">↗</span></a>
 					<p>Vansh brings energy, experimentation, and a sharp curiosity to the team. He likes exploring new approaches until the right solution clicks.</p>
 					<span class="member_tag">IDEA EXPLORER</span>
 				</div>

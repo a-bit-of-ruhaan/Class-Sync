@@ -1,7 +1,6 @@
 import base64
 
 import streamlit as st
-import pathlib as path
 import html
 from backend.auth import require_auth
 from backend.ai_api import summarizer_text
@@ -62,9 +61,17 @@ with col_left:
             unsafe_allow_html=True,)
     else:
         with st.spinner("Reading your document..."):
-            extracted_content = extract_document(uploaded_file)
+            try:
+                extracted_content = extract_document(uploaded_file)
+            except Exception as error:
+                st.error(f"We could not read that file: {error}")
+                extracted_content = ""
         st.session_state.extracted_text = extracted_content
         st.session_state.file_name = uploaded_file.name
+        if st.session_state.get("active_file_name") != uploaded_file.name:
+            st.session_state.active_file_name = uploaded_file.name
+            st.session_state.pop("summary", None)
+            st.session_state.chat_history = []
 
         safe_name = html.escape(uploaded_file.name)
         word_count = len(extracted_content.split())
@@ -133,8 +140,9 @@ with col_right:
 
             with st.spinner("Analyzing your document..."):
 
-                summary = summarizer_text(
-                    text="""
+                try:
+                    summary = summarizer_text(
+                        text="""
                     Summarize the uploaded document.
 
                     Include:
@@ -147,10 +155,13 @@ with col_right:
                     Only use information from the uploaded document.
                     """,
 
-                    document_text=st.session_state.extracted_text
-                )
-
-            st.session_state.summary = summary
+                        document_text=st.session_state.extracted_text,
+                        conversation_history="",
+                    )
+                except Exception as error:
+                    st.error(f"Smart Sum could not generate a summary: {error}")
+                else:
+                    st.session_state.summary = summary
 
 
         # --------------------------------------------------
@@ -165,6 +176,10 @@ with col_right:
                     st.session_state.summary
                 )
 
+        for message in st.session_state.get("chat_history", []):
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+
 
         # --------------------------------------------------
         # Chat input
@@ -177,22 +192,23 @@ with col_right:
 
         if user_question:
 
-            # Show user question
-            with st.chat_message("user"):
-
-                st.markdown(user_question)
-
-
-            # Send question + document to Gemini
-            with st.chat_message("assistant"):
-
-                with st.spinner("Thinking..."):
-
+            history = "\n".join(
+                f"{message['role'].title()}: {message['content']}"
+                for message in st.session_state.get("chat_history", [])
+            )
+            with st.spinner("Thinking..."):
+                try:
                     answer = summarizer_text(
                         text=user_question,
-                        document_text=st.session_state.extracted_text
+                        document_text=st.session_state.extracted_text,
+                        conversation_history=history,
                     )
-
-                st.markdown(answer)
+                except Exception as error:
+                    st.error(f"Smart Sum could not answer that: {error}")
+                else:
+                    st.session_state.setdefault("chat_history", []).extend(
+                        [{"role": "user", "content": user_question}, {"role": "assistant", "content": answer}]
+                    )
+                    st.rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)

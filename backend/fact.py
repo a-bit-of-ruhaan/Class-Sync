@@ -13,11 +13,6 @@ class FactList(BaseModel):
     facts: List[str]
 
 
-# Create Gemini client
-# Make sure GEMINI_API_KEY is set in your environment
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
-
 def generate_random_facts():
     """
     Generates exactly 4 random interesting facts using Gemini.
@@ -36,6 +31,11 @@ def generate_random_facts():
     - Avoid opinions and speculation.
     """
 
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY is not set. Add it to your .env file.")
+
+    client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model="gemini-3.7-flash",
         contents=prompt,

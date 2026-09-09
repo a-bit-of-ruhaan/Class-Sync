@@ -1,52 +1,174 @@
-# 🎓 ClassSync
+# Classync
 
-> **"Never miss a lecture again."**
+Classync is an AI-powered study companion built with Streamlit. It gives students one focused place to summarize documents, organize visual notes, discover interesting facts, and learn more about the team behind the project.
 
-ClassSync is a modern, collaborative digital classroom companion designed to centralize academic resources. Built specifically for students, study groups, and class representatives, it eliminates the chaos of scattered WhatsApp PDFs, forgotten deadlines, and lost lecture notes. 
+## Features
 
-With an intuitive, sleek interface, students can track daily lectures, download peer-contributed notes, monitor assignment deadlines, and stay updated with official announcements—all from a single dashboard.
+- **Secure account access**
+  - Login and account creation flows
+  - Display name, username, and email profiles
+  - PBKDF2-HMAC-SHA256 password hashing with per-user salts
+  - Local SQLite user storage
+  - Protected application pages with logout support
 
----
+- **Smart Sum document assistant**
+  - Upload PDF, DOCX, and TXT files
+  - Extract text with `PyPDF2` and `python-docx`
+  - Generate summaries and document-grounded answers with Google Gemini
+  - Ask follow-up questions about uploaded content
+  - Avoid unsupported answers when information is not present in the document
 
-## 🎯 The Problem & Our Solution
+- **Notes workspace**
+  - Upload image-based notes
+  - Browse previously uploaded notes
+  - View notes in a simple visual grid
 
-### The Problem
-* **Information Fragmentation:** Critical lecture updates, PDFs, and links get buried in chaotic social media group chats.
-* **Knowledge Gaps:** Missing a single class results in scrambling to find what was taught.
-* **Missed Deadlines:** Accumulating assignments slip through the cracks without tracked urgency.
+- **Curiosity dashboard**
+  - Generate four fresh facts with Gemini
+  - Explore summarization and notes from the home page
+  - View the Classync team and portfolio links
 
-### Our Solution
-* **Centralized Hub:** A structural timeline organizing notes strictly by subject, topic, and date.
-* **Verifiable Announcements:** Dedicated channels for Class Representatives (CR) to post pinned alerts.
-* **Deadlines at a Glance:** An assignment manager tracking priority status in real-time.
+- **Branded interface**
+  - Responsive login page
+  - Custom logo and visual assets
+  - Dark glass-inspired layouts
+  - Account sidebar with initials avatar, username, and logout action
 
----
+## Project Structure
 
- Key Features (Version 1 MVP)
-* 🔄 Active Real-Time Notes Sharing: A live-updating resource pipeline that lets students immediately upload, browse, and sync multi-format study documents without page refreshes.
-* ⚡ High-Performance Database Engine: A streamlined, ultra-fast data architectural backup built for immediate query processing, minimal search latency, and zero system overhead.
-* 🔐 Secure Real-Time Authentication: Full account management infrastructure letting students safely create personal credentials, sign in, and establish strict authorship over shared notes.
-* 🤖 AI Note Summarizer: An integrated smart language model that processes heavy notes instantly to extract core highlights, key definitions, and rapid-review study bullets.
-* 💬 Instant Chat Hub: A localized, real-time message system built directly into the ecosystem to facilitate peer discussion, study coordination, and resource collaboration.
----
+```text
+Class Sync/
+├── home.py                    # Authenticated home dashboard
+├── pages/
+│   ├── login.py               # Login and account creation
+│   ├── about.py               # Team and portfolio page
+│   ├── notes.py               # Image notes workspace
+│   └── summarizer.py          # Document upload and Smart Sum chat
+├── backend/
+│   ├── auth.py                # SQLite authentication and sessions
+│   ├── ai_api.py              # Gemini document assistant integration
+│   ├── fact.py                # Gemini fact generation
+│   └── note_summarizer.py     # PDF and DOCX text extraction
+├── database/
+│   └── classync.db            # Local SQLite database, created automatically
+├── images/
+│   ├── logo.png               # Classync logo
+│   ├── backg.png              # Shared background artwork
+│   ├── note.png               # Notes feature artwork
+│   └── summarize.png          # Summarizer feature artwork
+├── styles/                    # Page-specific CSS files
+├── notes/                     # Per-user uploaded note images
+└── README.md
+```
 
-## 🎨 UI Architecture
+## Requirements
 
-ClassSync features a premium, customized interface built directly onto modern layouts:
-* **Glassmorphic Styling:** Sleek container visual elements with soft blur backdrop adjustments.
-* **Modern Minimalist Theme:** Deep, eye-strain-free canvas palette designed for late-night study sessions.
-* **Fully Responsive:** Adapts elegantly across standard smartphones, tablets, and desktop displays.
+- Python 3.10 or newer
+- A Google Gemini API key
+- Internet access for Gemini requests and hosted font loading
 
----
+Install the Python packages used by the project:
 
-## 🛠️ Tech Stack & Dependencies
+```bash
+pip install streamlit google-genai python-dotenv PyPDF2 python-docx pydantic anyio
+```
 
-* **Frontend UI Framework:** Streamlit (Python)
-* **Design & Customization:** Custom Native CSS Injections
-* **Data Processing:** Pandas
-* **Local Database Mocking:** SqLite3
----
+## Configuration
 
+Create a `.env` file in the project root:
 
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+```
 
+Do not commit `.env` or expose the API key in source control.
 
+## Running the App
+
+From the project root, run:
+
+```bash
+streamlit run home.py
+```
+
+Then open the local URL shown by Streamlit, usually:
+
+```text
+http://localhost:8501
+```
+
+Unauthenticated visitors are redirected to the login page. After creating an account or signing in, users can access the home dashboard and protected pages.
+
+## Authentication
+
+Authentication is implemented in `backend/auth.py`.
+
+- User records are stored in `database/classync.db`.
+- Passwords are never stored as plain text.
+- Passwords are derived with PBKDF2-HMAC-SHA256 using 210,000 iterations and a unique salt.
+- Existing databases are migrated automatically when the authentication helper connects.
+- `require_auth()` protects the home, notes, summarizer, and About pages.
+- Streamlit session state tracks the signed-in user during the active session.
+
+This implementation is suitable for a local or classroom project. A production deployment should add email verification, password reset, rate limiting, secure session management, managed database storage, and a production-grade identity provider.
+
+## Smart Sum Flow
+
+1. A user uploads a PDF, DOCX, or TXT file.
+2. The file is converted into text locally.
+3. The extracted document is placed into the Gemini request context.
+4. The user can request a summary, explanation, or answer to a question.
+5. The assistant is instructed to use only the uploaded document and clearly state when information cannot be found.
+
+The Gemini integration requires `GEMINI_API_KEY` to be available through `.env`.
+
+## Data and Privacy Notes
+
+- Uploaded note images are saved in a username-scoped local directory under `notes/<username>/`.
+- Existing files placed directly in `notes/` are legacy files and are not shown in user workspaces.
+- User accounts are saved in the local SQLite database.
+- Uploaded document text is held in Streamlit session state while the user works with it.
+- Documents and notes are not automatically deleted by the application.
+- Review storage and retention requirements before deploying with real personal data.
+
+## Team Portfolio Links
+
+The About page currently includes:
+
+- Ruhaan: portfolio link configured
+- Ashish: placeholder link
+- Vansh: placeholder link
+
+Replace the placeholder `href` values in `pages/about.py` when the remaining portfolio URLs are ready.
+
+## Troubleshooting
+
+### `GEMINI_API_KEY is not set`
+
+Make sure `.env` exists in the project root and contains a valid key:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+Restart Streamlit after changing environment variables.
+
+### Login redirects back to the login page
+
+The application uses Streamlit session state. Confirm that the app is running as one Streamlit process and that the browser session has not been reset.
+
+### Uploaded files are not readable
+
+Confirm that the file is a valid PDF, DOCX, or UTF-8 text file. Scanned PDFs may require OCR before their text can be extracted.
+
+### Gemini requests fail
+
+The summarizer and fact generator catch API failures and display an in-app error. Check `GEMINI_API_KEY`, network access, model availability, and account quota.
+
+## Development Notes
+
+Keep secrets in `.env`, avoid committing generated databases or uploaded files, and test authentication and document handling before deploying. The CSS is intentionally page-specific, so changes to one page's visual language should be made in its matching file under `styles/`.
+
+## License
+
+No license has been specified for this project yet.
