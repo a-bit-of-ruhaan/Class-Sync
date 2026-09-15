@@ -14,7 +14,7 @@ Classync is an AI-powered study companion built with Streamlit. It gives student
 - **Smart Sum document assistant**
   - Upload PDF, DOCX, and TXT files
   - Extract text with `PyPDF2` and `python-docx`
-  - Generate summaries and document-grounded answers with Google Gemini
+  - Generate summaries and document-grounded answers with OpenAI
   - Ask follow-up questions about uploaded content
   - Avoid unsupported answers when information is not present in the document
 
@@ -24,7 +24,7 @@ Classync is an AI-powered study companion built with Streamlit. It gives student
   - View notes in a simple visual grid
 
 - **Curiosity dashboard**
-  - Generate four fresh facts with Gemini
+  - Generate four fresh facts with OpenAI
   - Explore summarization and notes from the home page
   - View the Classync team and portfolio links
 
@@ -46,8 +46,8 @@ Class Sync/
 │   └── summarizer.py          # Document upload and Smart Sum chat
 ├── backend/
 │   ├── auth.py                # SQLite authentication and sessions
-│   ├── ai_api.py              # Gemini document assistant integration
-│   ├── fact.py                # Gemini fact generation
+│   ├── ai_api.py              # OpenAI document assistant integration
+│   ├── fact.py                # OpenAI fact generation
 │   └── note_summarizer.py     # PDF and DOCX text extraction
 ├── database/
 │   └── classync.db            # Local SQLite database, created automatically
@@ -64,13 +64,13 @@ Class Sync/
 ## Requirements
 
 - Python 3.10 or newer
-- A Google Gemini API key
-- Internet access for Gemini requests and hosted font loading
+- An OpenAI API key
+- Internet access for OpenAI requests and hosted font loading
 
 Install the Python packages used by the project:
 
 ```bash
-pip install streamlit google-genai python-dotenv PyPDF2 python-docx pydantic anyio
+pip install streamlit openai python-dotenv PyPDF2 python-docx pydantic anyio
 ```
 
 ## Configuration
@@ -78,7 +78,7 @@ pip install streamlit google-genai python-dotenv PyPDF2 python-docx pydantic any
 Create a `.env` file in the project root:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 Do not commit `.env` or expose the API key in source control.
@@ -116,11 +116,11 @@ This implementation is suitable for a local or classroom project. A production d
 
 1. A user uploads a PDF, DOCX, or TXT file.
 2. The file is converted into text locally.
-3. The extracted document is placed into the Gemini request context.
+3. The extracted document is placed into the OpenAI request context.
 4. The user can request a summary, explanation, or answer to a question.
 5. The assistant is instructed to use only the uploaded document and clearly state when information cannot be found.
 
-The Gemini integration requires `GEMINI_API_KEY` to be available through `.env`.
+The OpenAI integration requires `OPENAI_API_KEY` to be available through `.env`.
 
 ## Data and Privacy Notes
 
@@ -143,12 +143,12 @@ Replace the placeholder `href` values in `pages/about.py` when the remaining por
 
 ## Troubleshooting
 
-### `GEMINI_API_KEY is not set`
+### `OPENAI_API_KEY is not set`
 
 Make sure `.env` exists in the project root and contains a valid key:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 Restart Streamlit after changing environment variables.
@@ -161,9 +161,9 @@ The application uses Streamlit session state. Confirm that the app is running as
 
 Confirm that the file is a valid PDF, DOCX, or UTF-8 text file. Scanned PDFs may require OCR before their text can be extracted.
 
-### Gemini requests fail
+### OpenAI requests fail
 
-The summarizer and fact generator catch API failures and display an in-app error. Check `GEMINI_API_KEY`, network access, model availability, and account quota.
+The summarizer and fact generator catch API failures and display an in-app error. Check `OPENAI_API_KEY`, network access, model availability, and account quota.
 
 ## Development Notes
 

@@ -352,4 +352,11 @@ div[data-testid="stColumn"]:hover {
     font-size: 0.85rem;
     height: 3rem;   
 }
+
+.footer:hover {
+    background-color: #26070a95;
+    transform: scaleY(5px);
+    transform-origin: bottom;
+
+}
   
