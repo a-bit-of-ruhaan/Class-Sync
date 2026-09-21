@@ -79,7 +79,7 @@ with panel_column:
         if mode == "Log in":
             if authenticate_user(email, password):
                 log_in(email)
-                st.switch_page("home.py")
+                st.rerun()
             else:
                 st.error("That email and password combination could not be verified.")
         elif password != confirm_password:
@@ -88,6 +88,6 @@ with panel_column:
             created, message = register_user(name, username, email, password)
             if created:
                 log_in(email)
-                st.switch_page("home.py")
+                st.rerun()
             else:
                 st.error(message)

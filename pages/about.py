@@ -4,6 +4,7 @@ from textwrap import dedent
 import streamlit as st
 
 from backend.auth import require_auth
+from backend.ui import render_app_footer, render_sidebar
 
 st.set_page_config(
 	page_title="About ClassSync",
@@ -11,6 +12,7 @@ st.set_page_config(
 )
 
 require_auth()
+render_sidebar("about")
 
 with open("styles/about.css") as f:
 	page_css = f.read()
@@ -79,3 +81,5 @@ st.html(
 	""",
 	),
 )
+
+render_app_footer()

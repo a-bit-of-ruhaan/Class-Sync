@@ -6,13 +6,25 @@ from backend.auth import require_auth
 from backend.ai_api import summarizer_text
 
 from backend.note_summarizer import extract_text_from_pdf, extract_text_from_docx
+from backend.ui import render_app_footer, render_sidebar
+
+
+STUDY_MODES = {
+    "Summary": "Create a concise academic summary with an overview, main topics, key facts, dates, numbers, and conclusions.",
+    "Study guide": "Create a structured study guide with section headings, definitions, key concepts, common confusions, and a short revision checklist.",
+    "Flashcards": "Create 12 question-and-answer flashcards. Put each question and answer on separate lines and use only information from the document.",
+    "Practice quiz": "Create a 10-question practice quiz with a mix of short answer and multiple choice questions, followed by an answer key grounded in the document.",
+    "Explain simply": "Explain the document in clear, beginner-friendly language. Define difficult terms from the document and use simple examples only when the document supports them.",
+}
 
 st.set_page_config(
     page_title="Summarizer",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 
 require_auth()
+render_sidebar("summarizer")
 
 with open("styles/summarizer.css", encoding="utf-8") as f:
     page_css = f.read()
@@ -103,6 +115,9 @@ with col_right:
         unsafe_allow_html=True,
     )
 
+    study_mode = st.selectbox("Study mode", list(STUDY_MODES), key="summarizer_study_mode")
+    st.caption("Choose the format that matches how you want to study this document.")
+
     st.markdown('<div class="chat_box">', unsafe_allow_html=True)
 
     # --------------------------------------------------
@@ -132,7 +147,7 @@ with col_right:
 
         # Generate summary button
         if st.button(
-            "Generate Summary",
+            f"Generate {study_mode}",
             use_container_width=True
         ):
 
@@ -140,17 +155,11 @@ with col_right:
 
                 try:
                     summary = summarizer_text(
-                        text="""
-                    Summarize the uploaded document.
-
-                    Include:
-                    - A brief overview
-                    - Main topics
-                    - Important points
-                    - Important facts, dates and numbers
-                    - Main conclusions
+                        text=f"""
+                    {STUDY_MODES[study_mode]}
 
                     Only use information from the uploaded document.
+                    Label the response clearly as a {study_mode.lower()}.
                     """,
 
                         document_text=st.session_state.extracted_text,
@@ -172,6 +181,13 @@ with col_right:
 
                 st.markdown(
                     st.session_state.summary
+                )
+                st.download_button(
+                    "Download study output",
+                    data=st.session_state.summary,
+                    file_name=f"{st.session_state.get('active_file_name', 'study_notes')}_{study_mode.lower().replace(' ', '_')}.md",
+                    mime="text/markdown",
+                    use_container_width=True,
                 )
 
         for message in st.session_state.get("chat_history", []):
@@ -210,3 +226,5 @@ with col_right:
                     st.rerun()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
+render_app_footer()
