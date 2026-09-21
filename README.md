@@ -121,6 +121,16 @@ GEMINI_API_KEY=your_api_key_here
 
 The app also supports `GOOGLE_API_KEY` as a fallback alias. For better quota isolation, copy `.env.example` and add dedicated `SUMMARIZER_API_KEY`, `QUIZ_API_KEY`, and `FACTS_API_KEY` values. Each feature prefers its dedicated key and falls back to the existing Gemini key until you add one.
 
+### Current study and community features
+
+- Upload notes with subject categories, titles, tags, search, and a persistent study plan
+- Generate summaries, study guides, flashcards, practice quizzes, and simple explanations from documents
+- Create AI-generated quiz games with local scoring and global or mate-only leaderboards
+- Search discoverable users, send mate requests, and chat directly with accepted mates
+- Create group study chats, share notes, and use block/report controls
+- Customize profiles with avatars, bios, links, public mate lists, and social galleries
+- Developer console with environment-controlled admin access, user bans, note moderation, and audit activity
+
 6. Start the app:
 
 ```bash
