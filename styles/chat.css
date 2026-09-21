@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+.stApp { background: radial-gradient(circle at top left, rgba(45, 212, 191, 0.14), transparent 26%), linear-gradient(135deg, #0b1220 0%, #101827 100%); color: #edf6ff; font-family: 'DM Sans', sans-serif; }
+.chat_header { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.chat_header h1, .chat_panel_heading h2, .conversation_header h2, .chat_empty_state h2, .chat_empty_state h3 { font-family: 'Space Grotesk', sans-serif; }
+.chat_header h1 { margin: 0.2rem 0; font-size: clamp(2rem, 4vw, 3rem); }
+.chat_header p, .conversation_header span, .chat_empty_state p { color: rgba(233,239,255,0.68); }
+.chat_header p { margin: 0; }
+.chat_status, .conversation_live { color: rgba(143,225,211,0.82); font-size: 0.78rem; }
+.chat_status span { display: inline-block; width: 0.45rem; height: 0.45rem; margin-right: 0.4rem; border-radius: 50%; background: #2dd4bf; }
+.chat_panel_heading { padding-bottom: 0.6rem; border-bottom: 1px solid rgba(148,163,184,0.16); }
+.chat_panel_heading h2 { margin: 0; font-size: 1.3rem; }
+.chat_empty_small, .chat_empty_state { padding: 2rem 1rem; color: rgba(233,239,255,0.62); text-align: center; }
+.chat_empty_state { min-height: 18rem; border: 1px solid rgba(148,163,184,0.14); border-radius: 16px; background: rgba(15,23,42,0.5); }
+.chat_empty_state.compact { min-height: auto; margin: 1rem 0; }
+.conversation_header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.15rem; border: 1px solid rgba(125,211,252,0.18); border-radius: 16px 16px 0 0; background: rgba(15,23,42,0.72); }
+.conversation_header h2 { margin: 0 0 0.25rem; }
+.conversation_live { white-space: nowrap; }
+.chat_refresh_hint { margin-top: 1.2rem; color: rgba(233,239,255,0.45); font-size: 0.75rem; text-align: center; }
+section[data-testid="stSidebar"] { background: rgba(8,11,19,0.94) !important; }
+[data-testid="stSidebarNav"] { display: none !important; }
+[data-testid="stChatMessage"] { border: 1px solid rgba(148,163,184,0.12); border-radius: 14px; margin: 0.5rem 0; background: rgba(15,23,42,0.48); }

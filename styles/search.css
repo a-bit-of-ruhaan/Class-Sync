@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+.stApp { background: radial-gradient(circle at top right, rgba(45,212,191,0.14), transparent 28%), linear-gradient(135deg, #0b1220, #101827); color: #edf6ff; font-family: 'DM Sans', sans-serif; }
+.search_header { padding: 2.2rem 0 1.4rem; }
+.search_header h1, .search_empty h2 { font-family: 'Space Grotesk', sans-serif; }
+.search_header h1 { margin: 0.35rem 0; font-size: clamp(2.3rem, 5vw, 4rem); }
+.search_header p, .search_empty p { color: rgba(233,239,255,0.68); }
+.search_result_count { margin: 1rem 0; color: #8fe1d3; font-weight: 700; }
+.search_person { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.8rem 0; padding: 1rem; border: 1px solid rgba(148,163,184,0.14); border-radius: 14px; background: rgba(15,23,42,0.62); }
+.search_identity { display: flex; align-items: center; gap: 0.8rem; min-width: 0; }
+.search_avatar { width: 3rem; height: 3rem; flex: 0 0 3rem; border-radius: 50%; object-fit: cover; display: grid; place-items: center; background: linear-gradient(135deg,#67e8f9,#60a5fa); color: #081521; font-weight: 800; }
+.search_identity strong, .search_identity span, .search_identity p { display: block; }
+.search_identity span { color: rgba(233,239,255,0.58); font-size: 0.8rem; }
+.search_identity p { margin: 0.3rem 0 0; color: rgba(233,239,255,0.72); }
+.search_stats { display: flex; gap: 0.7rem; color: rgba(233,239,255,0.58); font-size: 0.76rem; white-space: nowrap; }
+.search_empty { margin-top: 3rem; padding: 3rem 1rem; border: 1px dashed rgba(125,211,252,0.24); border-radius: 16px; text-align: center; }
+@media (max-width: 640px) { .search_person { align-items: flex-start; flex-direction: column; } }

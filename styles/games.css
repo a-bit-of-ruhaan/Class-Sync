@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+.stApp { background: radial-gradient(circle at 8% 0%, rgba(245,158,11,0.14), transparent 28%), linear-gradient(135deg,#0b1220,#101827); color: #edf6ff; font-family: 'DM Sans', sans-serif; }
+.games_header { padding: 2rem 0 1.4rem; }
+.games_header h1, .game_panel h2, .game_empty h2 { font-family: 'Space Grotesk', sans-serif; }
+.games_header h1 { margin: 0.35rem 0; font-size: clamp(2.3rem,5vw,4rem); }
+.games_header p, .game_panel p, .game_empty p { color: rgba(233,239,255,0.68); }
+.game_panel, .game_empty { padding: 1.25rem; border: 1px solid rgba(245,158,11,0.2); border-radius: 16px; background: rgba(15,23,42,0.58); }
+.game_empty { margin-top: 1rem; padding: 3rem 1rem; text-align: center; }
+.game_result { display: flex; align-items: baseline; gap: 0.8rem; margin: 1rem 0; padding: 1rem; border-radius: 14px; background: rgba(45,212,191,0.1); border: 1px solid rgba(45,212,191,0.25); }
+.game_result strong { color: #8fe1d3; font-size: 2rem; }
+.game_result span { color: rgba(233,239,255,0.7); }
+.leaderboard_row { display: flex; align-items: center; gap: 1rem; margin: 0.65rem 0; padding: 0.9rem 1rem; border: 1px solid rgba(148,163,184,0.14); border-radius: 12px; background: rgba(15,23,42,0.6); }
+.leaderboard_row strong { color: #fbbf24; width: 2rem; }
+.leaderboard_row span { flex: 1; }
+.leaderboard_row small { color: rgba(233,239,255,0.5); }
+.leaderboard_row b { color: #8fe1d3; }
