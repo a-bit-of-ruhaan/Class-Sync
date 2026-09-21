@@ -6,14 +6,14 @@ import streamlit as st
 from backend.auth import require_auth
 from backend.fact import generate_random_facts
 from backend.social import get_user_metrics, iter_note_images
-from backend.ui import render_bottom_nav
+from backend.ui import render_app_footer, render_sidebar
 
 
 st.set_page_config(
     page_title="Classync | Home",
     page_icon="images/logo.png",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 require_auth()
@@ -35,17 +35,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-with st.sidebar:
-    st.markdown(
-        f'''<div class="account_card">
-            <div class="account_avatar">{html.escape(initials)}</div>
-            <div><span class="account_label">STUDY PROFILE</span>
-            <strong>{html.escape(user_name)}</strong><small>@{html.escape(user_username)}</small></div>
-        </div>''',
-        unsafe_allow_html=True,
-    )
-    st.markdown('<div class="sidebar_divider"></div>', unsafe_allow_html=True)
-    st.caption("Your private learning space, with a little more momentum.")
+render_sidebar("home")
 
 st.markdown(
     f'''<section class="dashboard_topbar">
@@ -126,4 +116,4 @@ safe_fact = html.escape(str(st.session_state.home_facts[0]))
 st.markdown(f'<div class="featured_insight"><span class="insight_number">01</span><p>{safe_fact}</p><span class="insight_mark">+</span></div></section>', unsafe_allow_html=True)
 
 st.markdown('<div class="dashboard_footer_note">Classync is your focused corner of the internet for learning together.</div>', unsafe_allow_html=True)
-render_bottom_nav("home")
+render_app_footer()
