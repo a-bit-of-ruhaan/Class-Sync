@@ -1,49 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
+.stApp {
+    background:
+        radial-gradient(circle at top left, rgba(103, 232, 249, 0.14), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(96, 165, 250, 0.12), transparent 22%),
+        linear-gradient(135deg, #0b1220 0%, #101827 100%);
+    color: #edf2ff;
+    font-family: 'DM Sans', sans-serif;
+}
+
+h1, h2, h3, .eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
 .uploader_details {
-    margin: 0.65rem 0 0.15rem;
-    padding: 0.7rem 0.1rem 0.1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.82);
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(240, 244, 255, 0.8);
     font-size: 0.76rem;
-    line-height: 1.35;
+    line-height: 1.4;
 }
 
 .uploader_identity {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.6rem;
 }
 
 .uploader_avatar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex: 0 0 1.75rem;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
-    background: linear-gradient(135deg, #ff6b57, #b72f38);
-    color: #fff7f5;
-    font-size: 0.66rem;
+    background: linear-gradient(135deg, #67e8f9, #60a5fa);
+    color: white;
+    font-size: 0.7rem;
     font-weight: 800;
-    letter-spacing: 0.03em;
 }
 
 .uploader_identity strong {
     display: block;
-    color: #fff5f2;
-    font-size: 0.8rem;
-    font-weight: 700;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 0.82rem;
+    color: white;
 }
 
 .uploader_username,
 .uploader_contact,
 .uploader_time {
-    color: rgba(255, 255, 255, 0.52);
+    color: rgba(233, 239, 255, 0.68);
 }
 
 .uploader_username {
@@ -53,211 +60,146 @@
 
 .uploader_contact,
 .uploader_time {
-    margin-left: 2.3rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    margin-left: 2.5rem;
 }
 
-.uploader_time {
-    margin-top: 0.18rem;
-    color: rgba(255, 255, 255, 0.4);
+.notes_hero {
+    padding: 2rem 1.25rem 1.5rem;
+    margin-bottom: 1.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(25, 30, 43, 0.82), rgba(16, 17, 25, 0.8));
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+}
+
+.eyebrow {
+    display: inline-block;
+    color: #7dd3fc;
     font-size: 0.68rem;
-}
-
-.image_grid {
-    margin-top: 2rem;
-}
-
-.image_grid h2 {
-    color: #ff4d4d !important;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 0.35rem;
-}
-
-.album_intro {
-    color: #c39b9b;
-    margin-bottom: 1.25rem;
-}
-
-.image_grid div[data-testid="stColumn"] {
-    background: rgba(18, 3, 3, 0.88) !important;
-    border: 1px solid rgba(255, 77, 77, 0.16) !important;
-    border-radius: 10px !important;
-    padding: 0.75rem !important;
-    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
-
-.image_grid div[data-testid="stColumn"]:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 77, 77, 0.55) !important;
-    background: rgba(45, 8, 8, 0.94) !important;
-}
-
-.image_grid button {
-    width: 100%;
-    min-height: 2rem;
-    margin-top: 0.65rem;
-}
-/* Main page dark background & font setup */
-.stApp {
-    background:
-        radial-gradient(circle at 8% 0%, rgba(240, 91, 105, 0.16), transparent 28%),
-        radial-gradient(circle at 92% 18%, rgba(56, 211, 214, 0.1), transparent 25%),
-        linear-gradient(135deg, #100c16 0%, #080b13 100%);
-    color: #f7f3ef;
-    font-family: 'DM Sans', sans-serif;
-}
-h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
-[data-testid="stSidebarNav"] { display: none !important; }
-
-  .header_main {
-        background: linear-gradient(115deg, rgba(31, 20, 31, 0.82), rgba(12, 20, 29, 0.72)) !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 2rem 0 3rem 0;
-        margin-bottom: 2rem;
-        border-radius: 20px;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), inset 0 1px rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-    }
-    .header_main h1 {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ff927e;
-        font-size: 3rem;
-        font-weight: 800;
-        letter-spacing: -0.05em;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
-    }
-    .header_main p {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #a38585;
-        font-size: 1.1rem;
-    }
-
-/* Header Banner Container (.container_c) */
-.container_c {
-    text-align: center;
-    padding: 2.5rem 1rem 3rem 1rem;
-    background: linear-gradient(180deg, #1e0606 0%, transparent 100%);
-    border-bottom: 1px solid #3d0c0c;
-    margin-bottom: 2.5rem;
-    border-radius: 0 0 16px 16px;
-}
-.container_c h1 {
-    color: #ff4d4d;
-    font-size: 2.8rem;
     font-weight: 800;
-    letter-spacing: -0.04em;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 20px rgba(255, 77, 77, 0.15);
-}
-.container_c p {
-    color: #a38585;
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
 }
 
-/* Section Headings */
-h3 {
-    color: #ff6666 !important;
-    font-weight: 600 !important;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem !important;
+.notes_hero h1 {
+    margin: 0.45rem 0 0.3rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: -0.05em;
+    color: #f0f5ff;
 }
 
-/* Form Upload & Finder Columns styling wrapper */
-/* Update these inside your notes styling file */
-div[data-testid="stColumn"] {
-    background: rgba(30, 8, 8, 0.45) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 77, 77, 0.12) !important;
-    border-radius: 16px !important;
-    padding: 1.75rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+.notes_hero p {
+    margin: 0;
+    color: rgba(236, 241, 255, 0.8);
+    font-size: 1.02rem;
 }
 
-
-/* File Uploader Box Styling */
-div[data-testid="stFileUploader"] {
-    background-color: #0d0202 !important;
-    border: 1px dashed #5e1414 !important;
-    border-radius: 8px !important;
-    padding: 10px;
-}
-div[data-testid="stFileUploader"]:hover {
-    border-color: #ff4d4d !important;
+.small_stat {
+    padding: 1rem 1.1rem;
+    border-radius: 18px;
+    background: rgba(19, 20, 29, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
 }
 
-/* Select Box & Dropdowns styling */
-div[data-baseweb="select"] > div {
-    background-color: #0d0202 !important;
-    border-color: #5e1414 !important;
-    color: #f5e6e6 !important;
+.small_stat span {
+    display: block;
+    color: rgba(221, 230, 255, 0.7);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
-/* Success Messages Alerts */
-div[data-testid="stNotification"] {
-    background-color: #260a0a !important;
-    border: 1px solid #661a1a !important;
-    color: #ff9999 !important;
+.small_stat strong {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 2rem;
+    color: white;
 }
 
-/* Recent Uploads Bottom Container (.imageGrid) */
-.imageGrid div[data-testid="stColumn"] {
+.panel {
+    background: rgba(18, 20, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 1.2rem 1rem 0.8rem;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+
+.panel h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+    color: #ffb279 !important;
+}
+
+[data-testid="stFileUploader"] {
     background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 77, 77, 0.1) !important;
-    backdrop-filter: blur(4px) !important;
-    border-radius: 10px;
-    padding: 0.75rem;
-    transition: all 0.2s ease;
-}
-.imageGrid div[data-testid="stColumn"]:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 77, 77, 0.6) !important;
-    background: rgba(255, 77, 77, 0.03) !important;
+    border: 1px dashed rgba(255, 174, 120, 0.6) !important;
+    border-radius: 12px !important;
 }
 
-.imageGrid h2 {
-    color: #ff4d4d !important;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
+.gallery_header {
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
 }
 
-/* Image Grid Cards (The 4-column layout inside the loop) */
-.imageGrid div[data-testid="stColumn"] {
-    background-color: #120303;
-    border: 1px solid #2d0808;
-    border-radius: 10px;
-    padding: 0.75rem;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.imageGrid div[data-testid="stColumn"]:hover {
-    transform: translateY(-4px);
-    border-color: #ff3333;
+.gallery_header h2 {
+    margin: 0;
+    font-size: 1.9rem;
+    color: #ffb279;
+    letter-spacing: -0.04em;
 }
 
-/* Image captions text adjustment */
-div[data-testid="stImageCaption"] {
-    color: #a38585 !important;
-    font-size: 0.85rem !important;
-    text-align: center;
-    margin-top: 0.5rem;
+div[data-testid="stColumn"] {
+    background: rgba(19, 20, 30, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 18px !important;
+    padding: 0.8rem !important;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.16) !important;
 }
 
-    body,
+.card_divider {
+    height: 1px;
+    margin-top: 0.8rem;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.social_row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.7rem;
+    color: rgba(242, 246, 255, 0.75);
+    font-size: 0.74rem;
+}
+
+[data-testid="stButton"] > button {
+    border-radius: 10px !important;
+    border: 1px solid rgba(148, 163, 184, 0.12) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+button[kind="primary"] {
+    background: linear-gradient(135deg, #2dd4bf, #60a5fa) !important;
+    border: none !important;
+}
+
+.bottom_nav {
+    margin-top: 2rem;
+    padding: 0.75rem 0.7rem 0.25rem;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 20px 20px 0 0;
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 860px) {
+    .notes_hero {
+        padding: 1.5rem 1rem;
+    }
+}
+
     .stApp {
     /* Sets the path to your image file */
     background-image: url('images/backg.png');
