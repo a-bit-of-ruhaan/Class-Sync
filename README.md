@@ -1,177 +1,203 @@
-# Classync
+# Class Sync
 
-Classync is an AI-powered study companion built with Streamlit. It gives students one focused place to summarize documents, organize visual notes, discover interesting facts, and learn more about the team behind the project.
+Class Sync is a Streamlit-based study companion designed for students who want a cleaner way to manage notes, summarize documents, and explore learning content. The app combines secure user accounts, AI-powered document analysis, and a shared notes gallery in one local classroom-friendly workspace.
+
+## Overview
+
+The project includes:
+
+- A login and sign-up flow with secure local account storage
+- A protected dashboard for authenticated users
+- A document summarizer powered by Google Gemini
+- A notes gallery for uploaded study images
+- A quick facts section that surfaces interesting learning prompts
+- A small team/about page for the project creators
 
 ## Features
 
-- **Secure account access**
-  - Login and account creation flows
-  - Display name, username, and email profiles
-  - PBKDF2-HMAC-SHA256 password hashing with per-user salts
-  - Local SQLite user storage
-  - 30-day persistent login sessions that survive browser refreshes
-  - Protected application pages with logout support
+### Secure authentication
 
-- **Smart Sum document assistant**
-  - Upload PDF, DOCX, and TXT files
-  - Extract text with `PyPDF2` and `python-docx`
-  - Generate summaries and document-grounded answers with Google Gemini
-  - Ask follow-up questions about uploaded content
-  - Avoid unsupported answers when information is not present in the document
+- User registration and login with email, name, and username
+- Password hashing using PBKDF2-HMAC-SHA256 with a unique per-user salt
+- SQLite storage in the local database folder
+- Session persistence for 30 days using hashed browser tokens
+- Protected pages that redirect unauthenticated users to the login screen
 
-- **Notes workspace**
-  - Upload image-based notes
-  - Browse a public album containing notes uploaded by every user
-  - Show the uploader name, username, email, and upload time for each image
-  - Delete only your own uploaded notes
-  - View notes in a simple visual grid
+### Smart Sum document assistant
 
-- **Curiosity dashboard**
-  - Generate four fresh facts with Google Gemini
-  - Explore summarization and notes from the home page
-  - View the Classync team and portfolio links
+- Upload PDF, DOCX, or TXT files
+- Extract text from supported document types
+- Ask questions about the uploaded file
+- Generate summaries based only on the document content
+- Avoid answering questions when the information is not present in the upload
 
-- **Branded interface**
-  - Responsive login page
-  - Custom logo and visual assets
-  - Dark glass-inspired layouts
-  - Account sidebar with initials avatar, username, and logout action
+### Notes workspace
 
-## Project Structure
+- Upload image-based notes tied to the active user
+- View a shared public album of notes from all users
+- See uploader metadata such as name, username, and upload time
+- Delete only your own uploaded notes
+
+### Curiosity and home dashboard
+
+- Display a collection of quick facts on the home screen
+- Generate fresh AI-powered facts using Gemini
+- Navigate to the notes, summarizer, and about pages from the app dashboard
+
+## Tech stack
+
+- Python
+- Streamlit
+- SQLite
+- Google Gemini API via google-genai
+- PyPDF2 for PDF extraction
+- python-docx for DOCX extraction
+- Pillow for image handling
+- python-dotenv for local environment variables
+- Pydantic for structured fact responses
+
+## Project structure
 
 ```text
 Class Sync/
-├── home.py                    # Authenticated home dashboard
-├── pages/
-│   ├── login.py               # Login and account creation
-│   ├── about.py               # Team and portfolio page
-│   ├── notes.py               # Image notes workspace
-│   └── summarizer.py          # Document upload and Smart Sum chat
+├── home.py                   # Authenticated landing page/dashboard
+├── README.md                # Project documentation
+├── requirements.txt         # Python dependencies
 ├── backend/
-│   ├── auth.py                # SQLite authentication and sessions
-│   ├── ai_api.py              # Gemini document assistant integration
-│   ├── fact.py                # Gemini fact generation
-│   └── note_summarizer.py     # PDF and DOCX text extraction
+│   ├── ai_api.py            # Gemini integration for document Q&A and summaries
+│   ├── auth.py              # Authentication, session handling, SQLite logic
+│   ├── config.py            # API key resolution from environment variables
+│   ├── fact.py              # Gemini fact generation logic
+│   └── note_summarizer.py   # PDF/DOCX text extraction helpers
 ├── database/
-│   └── classync.db            # Local SQLite database, created automatically
+│   └── classync.db          # Local SQLite database, created when the app runs
 ├── images/
-│   ├── logo.png               # Classync logo
-│   ├── backg.png              # Shared background artwork
-│   ├── note.png               # Notes feature artwork
-│   └── summarize.png          # Summarizer feature artwork
-├── styles/                    # Page-specific CSS files
-├── notes/                     # Per-user uploaded note images
-└── README.md
+│   ├── backg.png            # Background image used across pages
+│   ├── logo.png             # Brand/logo asset
+│   ├── note.png             # Notes feature artwork
+│   └── summarize.png        # Summarizer feature artwork
+├── notes/
+│   └── <username>/          # User-uploaded note images
+├── pages/
+│   ├── about.py             # Team/about page
+│   ├── login.py             # Login and account creation page
+│   ├── notes.py             # Notes gallery and uploads
+│   └── summarizer.py        # Document summarizer page
+├── styles/
+│   ├── about.css
+│   ├── home.css
+│   ├── login.css
+│   ├── notes.css
+│   └── summarizer.css
+├── tests/
+│   ├── __init__.py
+│   ├── test_ai_config.py
+│   └── test_fact_parsing.py
+└── .env                     # Local environment secrets (not committed)
 ```
 
-## Requirements
+## Prerequisites
 
-- Python 3.10 or newer
-- A Google Gemini API key
-- Internet access for Gemini requests and hosted font loading
+- Python 3.10+
+- A valid Google Gemini API key
+- Access to the internet for Gemini requests
 
-Install the Python packages used by the project:
+## Quick start
+
+1. Clone the project.
+2. Open a terminal in the project root.
+3. Create and activate a virtual environment if desired.
+4. Install dependencies:
 
 ```bash
-pip install streamlit anyio python-dotenv google-genai pydantic PyPDF2 python-docx Pillow
+pip install -r requirements.txt
 ```
 
-## Configuration
-
-Create a `.env` file in the project root:
+5. Create a `.env` file in the project root with your Gemini key:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_KEY=your_api_key_here
 ```
 
-The app also accepts `GOOGLE_API_KEY` as an alias. Do not commit `.env` or expose the API key in source control.
+The app also supports `GOOGLE_API_KEY` as a fallback alias.
 
-## Running the App
-
-From the project root, run:
+6. Start the app:
 
 ```bash
 streamlit run home.py
 ```
 
-Then open the local URL shown by Streamlit, usually:
+7. Open the local Streamlit URL (typically `http://localhost:8501`).
 
-```text
-http://localhost:8501
+## Using the app
+
+### Login and account creation
+
+- Visit the login page when the app starts.
+- Create a new account or sign in with an existing one.
+- Authenticated users are directed to the main dashboard.
+
+### Dashboard
+
+From the home dashboard, users can navigate to:
+
+- Summarizer
+- Notes
+- About/Team
+
+### Smart Sum workflow
+
+1. Upload a PDF, DOCX, or TXT file.
+2. The app extracts readable text.
+3. Generate a summary or ask a document-related question.
+4. The model responds based only on the uploaded content.
+
+### Notes gallery
+
+- Upload note images from the notes page.
+- Files are stored under a user-specific folder in `notes/`.
+- The gallery displays each uploaded image with basic metadata.
+
+## Environment and storage notes
+
+- Secrets are expected in a local `.env` file and should not be committed.
+- The app stores user accounts and login sessions in `database/classync.db`.
+- Images uploaded to the notes system are stored in the project folders under `notes/<username>/`.
+- The app uses hashed session tokens, not raw session IDs, for safer persistence.
+
+## Running tests
+
+This project includes a small set of tests for config and fact parsing. To run them:
+
+```bash
+pytest
 ```
-
-Unauthenticated visitors are redirected to the login page. After creating an account or signing in, users can access the home dashboard and protected pages.
-
-## Authentication
-
-Authentication is implemented in `backend/auth.py`.
-
-- User records are stored in `database/classync.db`.
-- Passwords are never stored as plain text.
-- Passwords are derived with PBKDF2-HMAC-SHA256 using 210,000 iterations and a unique salt.
-- Existing databases are migrated automatically when the authentication helper connects.
-- `require_auth()` protects the home, notes, summarizer, and About pages.
-- A random 30-day session token is retained in the app URL while only its SHA-256 hash is stored in SQLite, allowing login to survive browser refreshes.
-- Streamlit session state holds the active user profile after the token is restored.
-
-This implementation is suitable for a local or classroom project. A production deployment should add email verification, password reset, rate limiting, secure session management, managed database storage, and a production-grade identity provider.
-
-## Smart Sum Flow
-
-1. A user uploads a PDF, DOCX, or TXT file.
-2. The file is converted into text locally.
-3. The extracted document is placed into the Gemini request context.
-4. The user can request a summary, explanation, or answer to a question.
-5. The assistant is instructed to use only the uploaded document and clearly state when information cannot be found.
-
-The Gemini integration requires `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) to be available through `.env`.
-
-## Data and Privacy Notes
-
-- Uploaded note images are saved in username-scoped local directories under `notes/<username>/`.
-- The Notes page reads those directories into a public album visible to authenticated users.
-- User accounts are saved in the local SQLite database.
-- Uploaded document text is held in Streamlit session state while the user works with it.
-- Documents and notes are not automatically deleted by the application.
-- Review storage and retention requirements before deploying with real personal data.
-
-## Team Portfolio Links
-
-The About page currently includes:
-
-- Ruhaan: portfolio link configured
-- Ashish: placeholder link
-- Vansh: placeholder link
-
-Replace the placeholder `href` values in `pages/about.py` when the remaining portfolio URLs are ready.
 
 ## Troubleshooting
 
-### `GEMINI_API_KEY is not set`
+### `No API key found`
 
-Make sure `.env` exists in the project root and contains a valid key:
+Check that your `.env` file exists and includes one of the supported keys:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_KEY=your_api_key_here
 ```
 
-The app also accepts `GOOGLE_API_KEY` as a fallback alias. Restart Streamlit after changing environment variables.
+### App redirects to login
 
-### Login redirects back to the login page
+- Make sure the user has created an account or signed in.
+- Confirm that the SQLite database is writable.
+- Verify that the app can create and update files in the project directory.
 
-The persistent session expires after 30 days or is removed when you log out. Sign in again if the token has expired, and make sure the app can write to `database/classync.db`.
+### Files fail to extract
 
-### Uploaded files are not readable
+- PDF files should be readable text PDFs or OCR-processed versions.
+- DOCX files should be valid Word documents.
+- TXT files should be UTF-8 encoded if possible.
 
-Confirm that the file is a valid PDF, DOCX, or UTF-8 text file. Scanned PDFs may require OCR before their text can be extracted.
+## Project status
 
-### Gemini requests fail
-
-The summarizer and fact generator catch API failures and display an in-app error. Check `GEMINI_API_KEY` or `GOOGLE_API_KEY`, network access, model availability, and account quota.
-
-## Development Notes
-
-Keep secrets in `.env`, avoid committing generated databases or uploaded files, and test authentication and document handling before deploying. The CSS is intentionally page-specific, so changes to one page's visual language should be made in its matching file under `styles/`.
+This is a local study-application prototype designed for classroom or personal use. It is not a production-grade deployment setup and should be reviewed before use with real personal or institutional data.
 
 ## License
 
