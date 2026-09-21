@@ -7,7 +7,7 @@ from backend.config import resolve_api_key
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "gemini-3.6-flash"
 
 SYSTEM_PROMPT = """
 You are "SMART SUM", an elite academic mentor and document analysis assistant.
@@ -104,10 +104,11 @@ END DOCUMENT
 def summarizer_text(
     text,
     document_text="",
-    conversation_history=""
+    conversation_history="",
+    feature="summarizer",
 ):
 
-    api_key = resolve_api_key()
+    api_key = resolve_api_key(feature=feature)
 
     client = genai.Client(api_key=api_key)
 

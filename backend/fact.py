@@ -12,7 +12,7 @@ from backend.config import resolve_api_key
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "gemini-3.6-flash"
 
 # Structure for Gemini's response
 class FactList(BaseModel):
@@ -66,7 +66,7 @@ def generate_random_facts():
     - Avoid opinions and speculation.
     """
 
-    api_key = resolve_api_key()
+    api_key = resolve_api_key(feature="facts")
 
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
