@@ -1,8 +1,10 @@
 streamlit
+extra-streamlit-components
 anyio
 python-dotenv
-openai
+google-genai
 pydantic
 PyPDF2
 python-docx
 Pillow
+pytest
