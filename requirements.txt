@@ -1,6 +1,5 @@
 streamlit
 extra-streamlit-components
-anyio
 python-dotenv
 google-genai
 pydantic

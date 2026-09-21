@@ -1,183 +1,120 @@
-# Class Sync
+# Classync
 
-Class Sync is a Streamlit-based study companion designed for students who want a cleaner way to manage notes, summarize documents, and explore learning content. The app combines secure user accounts, AI-powered document analysis, and a shared notes gallery in one local classroom-friendly workspace.
-
-## Overview
-
-The project includes:
-
-- A login and sign-up flow with secure local account storage
-- A protected dashboard for authenticated users
-- A document summarizer powered by Google Gemini
-- A notes gallery for uploaded study images
-- A quick facts section that surfaces interesting learning prompts
-- A small team/about page for the project creators
+Classync is a local Streamlit study and learning community app. It combines document-based AI study tools with note sharing, profiles, messaging, games, and lightweight moderation.
 
 ## Features
 
-### Secure authentication
+- Account creation and login with salted PBKDF2-HMAC-SHA256 password hashing
+- Persistent sessions backed by hashed browser tokens
+- AI document assistant for PDF, DOCX, and TXT files
+- Summary, study guide, flashcard, practice quiz, and simple explanation modes
+- Document-grounded questions and answers through Google Gemini
+- Image note uploads with titles, tags, categories, search, likes, saves, and study plans
+- Community discovery, profiles, avatars, mate requests, direct chat, and group study chats
+- AI-generated quiz games with local scoring and leaderboards
+- Developer console for admin accounts, user bans, note moderation, and activity logs
+- Home dashboard with generated study facts
 
-- User registration and login with email, name, and username
-- Password hashing using PBKDF2-HMAC-SHA256 with a unique per-user salt
-- SQLite storage in the local database folder
-- Session persistence for 30 days using hashed browser tokens
-- Protected pages that redirect unauthenticated users to the login screen
-
-### Smart Sum document assistant
-
-- Upload PDF, DOCX, or TXT files
-- Extract text from supported document types
-- Ask questions about the uploaded file
-- Generate summaries based only on the document content
-- Avoid answering questions when the information is not present in the upload
-
-### Notes workspace
-
-- Upload image-based notes tied to the active user
-- View a shared public album of notes from all users
-- See uploader metadata such as name, username, and upload time
-- Delete only your own uploaded notes
-
-### Curiosity and home dashboard
-
-- Display a collection of quick facts on the home screen
-- Generate fresh AI-powered facts using Gemini
-- Navigate to the notes, summarizer, and about pages from the app dashboard
-
-## Tech stack
-
-- Python
-- Streamlit
-- SQLite
-- Google Gemini API via google-genai
-- PyPDF2 for PDF extraction
-- python-docx for DOCX extraction
-- Pillow for image handling
-- python-dotenv for local environment variables
-- Pydantic for structured fact responses
-
-## Project structure
-
-```text
-Class Sync/
-├── home.py                   # Authenticated landing page/dashboard
-├── README.md                # Project documentation
-├── requirements.txt         # Python dependencies
-├── backend/
-│   ├── ai_api.py            # Gemini integration for document Q&A and summaries
-│   ├── auth.py              # Authentication, session handling, SQLite logic
-│   ├── config.py            # API key resolution from environment variables
-│   ├── fact.py              # Gemini fact generation logic
-│   └── note_summarizer.py   # PDF/DOCX text extraction helpers
-├── database/
-│   └── classync.db          # Local SQLite database, created when the app runs
-├── images/
-│   ├── backg.png            # Background image used across pages
-│   ├── logo.png             # Brand/logo asset
-│   ├── note.png             # Notes feature artwork
-│   └── summarize.png        # Summarizer feature artwork
-├── notes/
-│   └── <username>/          # User-uploaded note images
-├── pages/
-│   ├── about.py             # Team/about page
-│   ├── login.py             # Login and account creation page
-│   ├── notes.py             # Notes gallery and uploads
-│   └── summarizer.py        # Document summarizer page
-├── styles/
-│   ├── about.css
-│   ├── home.css
-│   ├── login.css
-│   ├── notes.css
-│   └── summarizer.css
-├── tests/
-│   ├── __init__.py
-│   ├── test_ai_config.py
-│   └── test_fact_parsing.py
-└── .env                     # Local environment secrets (not committed)
-```
-
-## Prerequisites
+## Technology
 
 - Python 3.10+
-- A valid Google Gemini API key
-- Access to the internet for Gemini requests
+- Streamlit
+- SQLite
+- Google Gemini through `google-genai`
+- PyPDF2 and `python-docx` for document extraction
+- Pillow for image handling
+- `python-dotenv` for local configuration
+- Pydantic for structured AI responses
 
-## Quick start
+## Setup
 
-1. Clone the project.
-2. Open a terminal in the project root.
-3. Create and activate a virtual environment if desired.
-4. Install dependencies:
+From the project root, create a virtual environment and install the dependencies:
 
 ```bash
+python -m venv .venv
+```
+
+Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-5. Create a `.env` file in the project root with your Gemini key:
+macOS/Linux:
 
-```env
-GEMINI_API_KEY=your_api_key_here
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-The app also supports `GOOGLE_API_KEY` as a fallback alias. For better quota isolation, copy `.env.example` and add dedicated `SUMMARIZER_API_KEY`, `QUIZ_API_KEY`, and `FACTS_API_KEY` values. Each feature prefers its dedicated key and falls back to the existing Gemini key until you add one.
+Create a local `.env` file. Do not commit it or share its values:
 
-### Current study and community features
+```env
+GEMINI_API_KEY=your_gemini_api_key
+```
 
-- Upload notes with subject categories, titles, tags, search, and a persistent study plan
-- Generate summaries, study guides, flashcards, practice quizzes, and simple explanations from documents
-- Create AI-generated quiz games with local scoring and global or mate-only leaderboards
-- Search discoverable users, send mate requests, and chat directly with accepted mates
-- Create group study chats, share notes, and use block/report controls
-- Customize profiles with avatars, bios, links, public mate lists, and social galleries
-- Developer console with environment-controlled admin access, user bans, note moderation, and audit activity
+The app also accepts `GOOGLE_API_KEY` as a fallback name. Feature-specific keys can be set when separate quotas are needed:
 
-6. Start the app:
+```env
+SUMMARIZER_API_KEY=your_key
+QUIZ_API_KEY=your_key
+FACTS_API_KEY=your_key
+ADMIN_EMAILS=admin@example.com
+```
+
+Each feature-specific key takes priority over the shared key. `ADMIN_EMAILS` is a comma-separated list of email addresses allowed to open the Developer page.
+
+## Run the app
 
 ```bash
 streamlit run home.py
 ```
 
-7. Open the local Streamlit URL (typically `http://localhost:8501`).
+Open the local URL shown by Streamlit, usually `http://localhost:8501`. New users can create an account from the login page. The app creates its SQLite database and storage directories as needed.
 
-## Using the app
+## Main pages
 
-### Login and account creation
+| Page | Purpose |
+| --- | --- |
+| Home | Dashboard, metrics, and study facts |
+| Notes | Upload, organize, search, like, save, and plan study work |
+| Summarize | Analyze documents and chat about their contents |
+| Explore | Browse community notes and learner profiles |
+| Search | Find discoverable users |
+| Games | Create and play AI-generated quizzes |
+| Profile | Edit profile details, manage mates, and view uploads |
+| Chat | Message accepted mates and use group study chats |
+| Developer | Admin-only moderation and activity tools |
+| About | Project team information |
 
-- Visit the login page when the app starts.
-- Create a new account or sign in with an existing one.
-- Authenticated users are directed to the main dashboard.
+## Project structure
 
-### Dashboard
+```text
+Class Sync/
+├── home.py                 # Streamlit entry point and dashboard
+├── backend/                # Authentication, AI, chat, games, study, and UI logic
+├── pages/                  # Streamlit pages
+├── database/               # SQLite database created at runtime
+├── notes/                  # User-uploaded notes and metadata
+├── images/                 # App artwork and branding
+├── styles/                 # Page-specific CSS
+├── tests/                  # pytest test suite
+├── requirements.txt        # Runtime and test dependencies
+└── README.md
+```
 
-From the home dashboard, users can navigate to:
+## Data and security notes
 
-- Summarizer
-- Notes
-- About/Team
+- Secrets belong in `.env`, which should remain local and untracked.
+- User accounts, sessions, social relationships, chats, games, and moderation data are stored in `database/classync.db`.
+- Uploaded notes and profile photos are stored under `notes/<username>/`.
+- Uploaded files are local application data; review the storage and privacy model before deploying publicly.
+- The app is a local prototype and is not configured as a production deployment.
 
-### Smart Sum workflow
+## Tests
 
-1. Upload a PDF, DOCX, or TXT file.
-2. The app extracts readable text.
-3. Generate a summary or ask a document-related question.
-4. The model responds based only on the uploaded content.
-
-### Notes gallery
-
-- Upload note images from the notes page.
-- Files are stored under a user-specific folder in `notes/`.
-- The gallery displays each uploaded image with basic metadata.
-
-## Environment and storage notes
-
-- Secrets are expected in a local `.env` file and should not be committed.
-- The app stores user accounts and login sessions in `database/classync.db`.
-- Images uploaded to the notes system are stored in the project folders under `notes/<username>/`.
-- The app uses hashed session tokens, not raw session IDs, for safer persistence.
-
-## Running tests
-
-This project includes a small set of tests for config and fact parsing. To run them:
+Run the test suite from the project root:
 
 ```bash
 pytest
@@ -187,28 +124,16 @@ pytest
 
 ### `No API key found`
 
-Check that your `.env` file exists and includes one of the supported keys:
+Ensure `.env` exists in the project root and contains `GEMINI_API_KEY`, `GOOGLE_API_KEY`, or the relevant feature-specific key.
 
-```env
-GEMINI_API_KEY=your_api_key_here
-```
+### The app redirects to login
 
-### App redirects to login
+Create an account or sign in, and confirm that the project can write to `database/` and `notes/`.
 
-- Make sure the user has created an account or signed in.
-- Confirm that the SQLite database is writable.
-- Verify that the app can create and update files in the project directory.
+### A document cannot be read
 
-### Files fail to extract
-
-- PDF files should be readable text PDFs or OCR-processed versions.
-- DOCX files should be valid Word documents.
-- TXT files should be UTF-8 encoded if possible.
-
-## Project status
-
-This is a local study-application prototype designed for classroom or personal use. It is not a production-grade deployment setup and should be reviewed before use with real personal or institutional data.
+Use a text-based PDF, a valid DOCX file, or a UTF-8 TXT file. Scanned PDFs may require OCR before upload.
 
 ## License
 
-No license has been specified for this project yet.
+No license has been specified for this project.
