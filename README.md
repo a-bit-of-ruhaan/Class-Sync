@@ -119,7 +119,7 @@ pip install -r requirements.txt
 GEMINI_API_KEY=your_api_key_here
 ```
 
-The app also supports `GOOGLE_API_KEY` as a fallback alias.
+The app also supports `GOOGLE_API_KEY` as a fallback alias. For better quota isolation, copy `.env.example` and add dedicated `SUMMARIZER_API_KEY`, `QUIZ_API_KEY`, and `FACTS_API_KEY` values. Each feature prefers its dedicated key and falls back to the existing Gemini key until you add one.
 
 6. Start the app:
 
