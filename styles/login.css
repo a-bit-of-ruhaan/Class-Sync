@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 .stApp {
-    background: #0a111b;
+    background:
+        radial-gradient(circle at 12% 12%, rgba(240, 91, 105, 0.18), transparent 28%),
+        radial-gradient(circle at 88% 82%, rgba(56, 211, 214, 0.12), transparent 26%),
+        #080b13;
     color: #f8f4ef;
     font-family: 'DM Sans', sans-serif;
 }
@@ -34,7 +37,7 @@
     justify-content: space-between;
     padding: clamp(2rem, 6vw, 5rem);
     border-radius: 28px 0 0 28px;
-    background: linear-gradient(145deg, rgba(18, 31, 45, 0.86), rgba(20, 12, 25, 0.45));
+    background: linear-gradient(145deg, rgba(26, 36, 51, 0.88), rgba(22, 15, 31, 0.62));
     backdrop-filter: blur(18px);
 }
 
@@ -105,7 +108,7 @@ div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) > div[data-testid=
     min-height: 0;
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 0 28px 28px 0;
-    background: rgba(7, 12, 20, 0.6);
+    background: rgba(8, 12, 21, 0.78);
     box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(18px);
 }
@@ -154,6 +157,17 @@ div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) [data-testid="stFo
     border-color: #ff8490;
     background: #ff6b78;
     color: #fff;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) [data-testid="stFormSubmitButton"] button,
+div[data-testid="stRadio"] div[role="radiogroup"] label[data-checked="true"] {
+    background: linear-gradient(100deg, #e45463, #f18a68);
+    box-shadow: 0 10px 28px rgba(240, 91, 105, 0.25);
+}
+
+div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) input:focus {
+    border-color: rgba(56, 211, 214, 0.7) !important;
+    box-shadow: 0 0 0 1px rgba(56, 211, 214, 0.35);
 }
 
 div[data-testid="stHorizontalBlock"]:has(.login_panel_anchor) input {

@@ -2,7 +2,7 @@ import base64
 
 import streamlit as st
 
-from backend.auth import authenticate_user, log_in, register_user
+from backend.auth import authenticate_user, log_in, register_user, restore_session
 
 
 st.set_page_config(
@@ -12,6 +12,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+restore_session()
 if st.session_state.get("authenticated", False):
     st.switch_page("home.py")
 

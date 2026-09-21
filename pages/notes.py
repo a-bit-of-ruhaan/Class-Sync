@@ -1,9 +1,16 @@
 import base64
+import datetime
+import html
+import json
 
 import streamlit as st
 import pathlib as path
 
-from backend.auth import get_user_notes_directory, require_auth
+from backend.auth import (
+    get_user_notes_directory,
+    get_user_profile_by_username,
+    require_auth,
+)
 
 
 st.set_page_config(
@@ -12,6 +19,56 @@ st.set_page_config(
 )
 
 require_auth()
+
+IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"}
+
+
+def load_upload_metadata(notes_dir):
+    metadata_path = notes_dir / ".uploaders.json"
+    if not metadata_path.exists():
+        return {}
+    try:
+        with metadata_path.open(encoding="utf-8") as metadata_file:
+            return json.load(metadata_file)
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def save_upload_metadata(notes_dir, metadata):
+    metadata_path = notes_dir / ".uploaders.json"
+    with metadata_path.open("w", encoding="utf-8") as metadata_file:
+        json.dump(metadata, metadata_file, indent=2)
+
+
+def uploader_details(metadata, filename, owner_username):
+    details = metadata.get(filename)
+    if details:
+        return details
+    profile = get_user_profile_by_username(owner_username) or {}
+    return {
+        "name": profile.get("name", "Classync member"),
+        "username": profile.get("username", owner_username),
+        "email": profile.get("email", ""),
+        "uploaded_at": "Earlier upload",
+    }
+
+
+def uploader_markup(details):
+    safe_name = html.escape(details.get("name", "Classync member"))
+    safe_username = html.escape(details.get("username", "member"))
+    safe_email = html.escape(details.get("email", ""))
+    safe_uploaded_at = html.escape(details.get("uploaded_at", "Earlier upload"))
+    initials = "".join(part[0] for part in safe_name.split()[:2]).upper() or "C"
+    return (
+        f'<div class="uploader_details">'
+        f'<div class="uploader_identity">'
+        f'<span class="uploader_avatar">{html.escape(initials)}</span>'
+        f'<div><strong>{safe_name}</strong><span class="uploader_username">@{safe_username}</span></div>'
+        f'</div>'
+        f'<div class="uploader_contact">{safe_email}</div>'
+        f'<div class="uploader_time">Uploaded {safe_uploaded_at}</div>'
+        f'</div>'
+    )
 
 with open("styles/notes.css") as f:
     page_css = f.read()
@@ -38,6 +95,14 @@ with col_upload:
         file_path = notes_dir / safe_filename
         with open(file_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
+        metadata = load_upload_metadata(notes_dir)
+        metadata[safe_filename] = {
+            "name": st.session_state.get("user_name", "Classync member"),
+            "username": st.session_state.get("user_username", "member"),
+            "email": st.session_state.get("user_email", ""),
+            "uploaded_at": datetime.datetime.now().astimezone().strftime("%b %d, %Y at %I:%M %p"),
+        }
+        save_upload_metadata(notes_dir, metadata)
         st.success(f"File '{uploaded_file.name}' uploaded successfully!")
 
  
@@ -47,56 +112,60 @@ with col_find:
 
     with col_finder:
         st.subheader("Find Your Notes")
-        notes_dir = get_user_notes_directory()
         search_query = st.text_input("Search notes", placeholder="Filter by filename", label_visibility="collapsed")
-        if notes_dir.exists():
-            note_files = [f.name for f in notes_dir.iterdir() if f.is_file()]
-            if search_query:
-                note_files = [name for name in note_files if search_query.lower() in name.lower()]
-            if note_files:
-                selected_note = st.selectbox("Select a note to view", note_files)
-                file_path = notes_dir / selected_note
-                if st.button("Delete selected note", icon=":material/delete:"):
-                    file_path.unlink(missing_ok=True)
-                    st.rerun()
-            else:
-                selected_note = None
-        else:
-            note_files = []
-            selected_note = None
+        selected_note = None
 
     with col_img:
-        if selected_note:
-            st.image(file_path, caption=selected_note, width=300)
-        else:
-            st.info("No notes found. Please upload your notes first.")
+        st.info("Browse the public album below to view uploaded notes.")
 
 st.markdown('<div class="image_grid">', unsafe_allow_html=True)
-st.markdown('<h2>Recently Uploaded Notes</h2>', unsafe_allow_html=True)
+st.markdown('<h2>Public Notes Album</h2>', unsafe_allow_html=True)
+st.markdown('<p class="album_intro">Explore notes shared by everyone in Classync.</p>', unsafe_allow_html=True)
 
-# Display uploaded images in a 4-column grid
-notes_dir = get_user_notes_directory()
-if notes_dir.exists():
-    image_files = [f for f in notes_dir.iterdir() if f.is_file() and f.suffix.lower() in ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp']]
-    if search_query:
-        image_files = [file for file in image_files if search_query.lower() in file.name.lower()]
-    
-    if image_files:
-        # Sort by modification time (newest first)
-        image_files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
-        
-        # Create grid with 4 columns
-        cols_per_row = 5
-        for i in range(0, len(image_files), cols_per_row):
-            cols = st.columns(cols_per_row)
-            for col_idx, col in enumerate(cols):
-                img_idx = i + col_idx
-                if img_idx < len(image_files):
-                    with col:
-                        st.image(str(image_files[img_idx]), caption=image_files[img_idx].name, use_container_width=True)
-    else:
-        st.info("No images uploaded yet.")
+public_album = []
+public_notes_root = path.Path("notes")
+if public_notes_root.exists():
+    for owner_dir in public_notes_root.iterdir():
+        if not owner_dir.is_dir():
+            continue
+        metadata = load_upload_metadata(owner_dir)
+        for image_file in owner_dir.iterdir():
+            if image_file.is_file() and image_file.suffix.lower() in IMAGE_SUFFIXES:
+                public_album.append(
+                    {
+                        "path": image_file,
+                        "owner_username": owner_dir.name,
+                        "details": uploader_details(metadata, image_file.name, owner_dir.name),
+                    }
+                )
+
+if search_query:
+    normalized_query = search_query.lower()
+    public_album = [
+        item for item in public_album
+        if normalized_query in item["path"].name.lower()
+        or normalized_query in item["details"]["name"].lower()
+        or normalized_query in item["details"]["username"].lower()
+    ]
+
+public_album.sort(key=lambda item: item["path"].stat().st_mtime, reverse=True)
+if public_album:
+    st.caption(f"{len(public_album)} shared image{'s' if len(public_album) != 1 else ''}")
+    cols_per_row = 5
+    for index in range(0, len(public_album), cols_per_row):
+        cols = st.columns(cols_per_row)
+        for column_index, col in enumerate(cols):
+            album_index = index + column_index
+            if album_index < len(public_album):
+                item = public_album[album_index]
+                with col:
+                    st.image(str(item["path"]), caption=item["path"].name, use_container_width=True)
+                    st.markdown(uploader_markup(item["details"]), unsafe_allow_html=True)
+                    if item["owner_username"] == st.session_state.get("user_username"):
+                        if st.button("Delete", key=f"delete_{item['owner_username']}_{item['path'].name}", icon=":material/delete:"):
+                            item["path"].unlink(missing_ok=True)
+                            st.rerun()
 else:
-    st.info("Notes directory not found.")
+    st.info("No images have been shared yet. Upload the first note to the public album.")
 
 st.markdown('</div>', unsafe_allow_html=True)

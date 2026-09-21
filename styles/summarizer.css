@@ -1,16 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 /* Main Page Dark Aesthetic Background */
 .stApp {
-    background: radial-gradient(circle at 50% 0%, #290808 0%, #0c0202 100%);
-    color: #f5e6e6;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(240, 91, 105, 0.2), transparent 35%),
+        radial-gradient(circle at 95% 70%, rgba(56, 211, 214, 0.1), transparent 25%),
+        #080b13;
+    color: #f7f3ef;
+    font-family: 'DM Sans', sans-serif;
 }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
 [data-testid="stSidebarNav"] { display: none !important; }
 
 /* Global Heading Adjustments */
 h1 {
     text-align: center;
     background-color: #3d0c0c95 !important;
-    color: #ff4d4d;
+    color: #ff927e;
     font-size: 2.8rem;
     font-weight: 800;
     letter-spacing: -0.04em;
@@ -29,10 +35,10 @@ p {
 
 /* Glassmorphism Structural Columns */
 div[data-testid="stColumn"] {
-    background: rgba(30, 8, 8, 0.45) !important;
+    background: linear-gradient(145deg, rgba(31, 20, 31, 0.72), rgba(12, 20, 29, 0.58)) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 77, 77, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 16px !important;
     padding: 2rem !important;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
@@ -130,7 +136,7 @@ div[data-testid="stChatMessage"] {
 
 /* Action Buttons Grid */
 .stButton > button {
-    background: linear-gradient(90deg, rgba(128, 0, 0, 0.6) 0%, rgba(179, 0, 0, 0.7) 100%) !important;
+    background: linear-gradient(100deg, #e45463, #f18a68) !important;
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 77, 77, 0.3) !important;
     color: #ffffff !important;

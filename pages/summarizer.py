@@ -14,7 +14,7 @@ st.set_page_config(
 
 require_auth()
 
-with open("styles/summarizer.css") as f:
+with open("styles/summarizer.css", encoding="utf-8") as f:
     page_css = f.read()
 with open("images/backg.png", "rb") as f:
     background_image = base64.b64encode(f.read()).decode("ascii")
@@ -98,11 +98,9 @@ with col_mid:
 
 #there we will get the summarized version of the uploaded document and also we can ask questions about the document
 with col_right:
-   with col_right:
-
     st.markdown(
         '<div><h2>SMART SUM</h2></div>',
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
     st.markdown('<div class="chat_box">', unsafe_allow_html=True)

@@ -1,8 +1,6 @@
 import base64
 import html
 
-from anyio import Path
-
 import streamlit as st
 
 from backend.auth import log_out, require_auth
@@ -13,6 +11,8 @@ st.set_page_config(
     layout="wide",
     page_title="classync",
     initial_sidebar_state="collapsed"
+
+    
 
 )
 
@@ -29,14 +29,14 @@ with st.sidebar:
             <strong>{user_name}</strong><small>@{user_username}</small></div>
         </div>''',
         unsafe_allow_html=True,
-    )
+    )  
     st.markdown('<div class="sidebar_divider"></div>', unsafe_allow_html=True)
     if st.button("Log out", icon=":material/logout:", use_container_width=True):
         log_out()
         st.switch_page("pages/login.py")
 
 # injecting css
-with open("styles/home.css") as f:
+with open("styles/home.css", encoding="utf-8") as f:
     page_css = f.read()
 with open("images/backg.png", "rb") as f:
     background_image = base64.b64encode(f.read()).decode("ascii")

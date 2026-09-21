@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 .stApp {
     background:
         radial-gradient(circle at 50% 0%, rgba(137, 25, 25, 0.28), transparent 38%),
-        linear-gradient(135deg, #1a0505 0%, #0d0202 100%);
-    color: #f5e6e6;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        radial-gradient(circle at 88% 18%, rgba(56, 211, 214, 0.1), transparent 25%),
+        linear-gradient(135deg, #100c16 0%, #080b13 100%);
+    color: #f7f3ef;
+    font-family: 'DM Sans', sans-serif;
 }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
 
 section[data-testid="stSidebar"] {
     background: rgba(18, 3, 3, 0.88) !important;
@@ -13,7 +17,7 @@ section[data-testid="stSidebar"] {
 [data-testid="stSidebarNav"] { display: none !important; }
 
 .about_page_header {
-    background-color: #3d0c0c99  !important;
+    background: linear-gradient(115deg, rgba(31, 20, 31, 0.82), rgba(12, 20, 29, 0.72)) !important;
     display: flex;
     margin: 5%;
     border-radius: 16px;
@@ -25,7 +29,7 @@ section[data-testid="stSidebar"] {
 h1,
 h2,
 h3 {
-    color: #ff6666 !important;
+    color: #ff927e !important;
 }
 
 p,
@@ -96,8 +100,8 @@ div[data-testid="stColumn"],
     grid-template-columns: minmax(0, 3fr) minmax(180px, 1fr);
     min-height: 245px;
     overflow: hidden;
-    background: linear-gradient(110deg, rgba(42, 8, 8, 0.94), rgba(13, 3, 3, 0.97));
-    border: 1px solid rgba(255, 105, 105, 0.25);
+    background: linear-gradient(110deg, rgba(31, 20, 31, 0.94), rgba(10, 14, 23, 0.97));
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 18px;
     box-shadow: 0 16px 42px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -176,7 +180,7 @@ div[data-testid="stColumn"],
     justify-content: center;
     flex-direction: column;
     gap: 0.8rem;
-    background: rgba(10, 2, 2, 0.72);
+    background: rgba(7, 12, 20, 0.72);
     border-left: 1px solid rgba(255, 105, 105, 0.18);
 }
 

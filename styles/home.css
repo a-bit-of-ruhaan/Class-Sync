@@ -1,15 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
     /* Main app background and typography */
     .stApp {
-        background: linear-gradient(135deg, #1a0505 0%, #0d0202 100%);
-        color: #f5e6e6;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background:
+            radial-gradient(circle at 8% 0%, rgba(240, 91, 105, 0.18), transparent 30%),
+            radial-gradient(circle at 92% 18%, rgba(56, 211, 214, 0.1), transparent 25%),
+            linear-gradient(135deg, #100c16 0%, #080b13 100%);
+        color: #f7f3ef;
+        font-family: 'DM Sans', sans-serif;
     }
+    h1, h2, h3, .header_main h1 { font-family: 'Space Grotesk', sans-serif; }
 
     /* Sidebar minimal dark styling */
     section[data-testid="stSidebar"] {
-        background-color: #120303 !important;
-        border-right: 1px solid #3d0c0c;
+        background: rgba(8, 11, 19, 0.88) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
     }
     [data-testid="stSidebarNav"] {
         display: none !important;
@@ -59,11 +66,11 @@
         max-width: 980px;
         margin: 0 auto 2.5rem;
         padding: 1.15rem 2.25rem;
-        background: rgba(35, 7, 9, 0.58);
-        border: 1px solid rgba(255, 126, 126, 0.2);
+        background: linear-gradient(115deg, rgba(31, 20, 31, 0.82), rgba(12, 20, 29, 0.72));
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 16px;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), inset 0 1px rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(12px);
     }
     .brand_logo {
@@ -81,7 +88,7 @@
         padding-left: 2.5rem;
     }
     .header_kicker {
-        color: #ff9b78;
+        color: #ff927e;
         font-size: 0.7rem;
         font-weight: 800;
         letter-spacing: 0.2em;
@@ -95,7 +102,7 @@
         text-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
     }
     .header_main p {
-        color: #d3aaa2;
+        color: #b8c1cb;
         font-size: 1.05rem;
         margin: 0;
     }
@@ -125,10 +132,10 @@
 
 
 div[data-testid="stHorizontalBlock"] > div:not(:nth-child(2)) [data-testid="stVerticalBlock"] {
-    background: rgba(30, 8, 8, 0.45) !important;
+    background: linear-gradient(145deg, rgba(31, 20, 31, 0.72), rgba(12, 20, 29, 0.58)) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 77, 77, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 16px !important;
     padding: 3rem;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
@@ -141,9 +148,9 @@ div[data-testid="stColumn"]:hover {
 .content_container {
     margin-top: 3rem;
     padding: 2rem;
-    background: rgba(40, 10, 10, 0.35) !important;
+    background: rgba(18, 24, 35, 0.52) !important;
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 77, 77, 0.15) !important;
+    border: 1px solid rgba(56, 211, 214, 0.18) !important;
     border-radius: 16px;
     text-align: center;
 }
@@ -156,17 +163,17 @@ div[data-testid="stColumn"]:hover {
 
     /* Minimal Button Styling */
     .stButton > button {
-        background: linear-gradient(90deg, #800000 0%, #b30000 100%) !important;
+        background: linear-gradient(100deg, #e45463 0%, #f18a68 100%) !important;
         color: #ffffff !important;
         border: none !important;
-        border-radius: 6px !important;
+        border-radius: 10px !important;
         padding: 0.5rem 1rem !important;
         font-weight: 600 !important;
         transition: opacity 0.2s ease !important;
     }
     .stButton > button:hover {
         opacity: 0.9 !important;
-        box-shadow: 0 0 15px rgba(179, 0, 0, 0.4) !important;
+        box-shadow: 0 8px 24px rgba(240, 91, 105, 0.3) !important;
     }
 
        

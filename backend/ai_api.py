@@ -1,10 +1,13 @@
-import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 from google import genai
 
+from backend.config import resolve_api_key
+
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
+MODEL_NAME = "gemini-2.5-flash"
 
 SYSTEM_PROMPT = """
 You are "SMART SUM", an elite academic mentor and document analysis assistant.
@@ -104,13 +107,7 @@ def summarizer_text(
     conversation_history=""
 ):
 
-    api_key = os.getenv("GEMINI_API_KEY")
-
-    if not api_key:
-        raise RuntimeError(
-            "GEMINI_API_KEY is not set. "
-            "Add it to your .env file."
-        )
+    api_key = resolve_api_key()
 
     client = genai.Client(api_key=api_key)
 
@@ -147,8 +144,8 @@ ANSWER
 """
 
     response = client.models.generate_content(
-        model="gemini-3.6-flash",
-        contents=prompt
+        model=MODEL_NAME,
+        contents=prompt,
     )
 
     return response.text
