@@ -12,6 +12,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+st.session_state.pop("_auth_protected_page", None)
 restore_session()
 if st.session_state.get("authenticated", False):
     st.switch_page("home.py")

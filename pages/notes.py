@@ -2,9 +2,12 @@ import base64
 import datetime
 import html
 import json
+import mimetypes
 
 import streamlit as st
 import pathlib as path
+from docx import Document
+from PyPDF2 import PdfReader
 
 from backend.auth import (
     get_user_notes_directory,
@@ -22,6 +25,7 @@ require_auth()
 render_sidebar("notes")
 
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"}
+SUPPORTED_NOTE_EXTENSIONS = IMAGE_SUFFIXES | {".pdf", ".txt", ".doc", ".docx", ".md", ".csv", ".json"}
 DEFAULT_CATEGORIES = [
     "Mathematics",
     "Science",
@@ -33,6 +37,53 @@ DEFAULT_CATEGORIES = [
     "Projects",
     "Uncategorized",
 ]
+
+
+def note_file_is_supported(file_path):
+    return (
+        file_path.is_file()
+        and file_path.name.lower() not in PROFILE_FILENAMES
+        and file_path.name.lower() not in {".uploaders.json", ".social.json", "social.json"}
+        and file_path.suffix.lower() in SUPPORTED_NOTE_EXTENSIONS
+    )
+
+
+def note_file_type_label(file_path):
+    suffix = file_path.suffix.lower().lstrip(".")
+    return suffix.upper() if suffix else "FILE"
+
+
+def note_file_download_mime(file_name):
+    return mimetypes.guess_type(file_name)[0] or "application/octet-stream"
+
+
+def note_file_preview(file_path):
+    suffix = file_path.suffix.lower()
+
+    if suffix in IMAGE_SUFFIXES:
+        return None
+
+    try:
+        if suffix in {".txt", ".md", ".csv", ".json"}:
+            return file_path.read_text(encoding="utf-8", errors="replace")[:4000]
+
+        if suffix == ".pdf":
+            reader = PdfReader(str(file_path))
+            sections = []
+            for page in reader.pages[:3]:
+                page_text = page.extract_text() or ""
+                if page_text.strip():
+                    sections.append(page_text.strip())
+            return "\n\n".join(sections)[:4000] if sections else "PDF preview is not available for this document."
+
+        if suffix in {".doc", ".docx"}:
+            document = Document(str(file_path))
+            paragraphs = [paragraph.text.strip() for paragraph in document.paragraphs if paragraph.text.strip()]
+            return "\n".join(paragraphs[:40])[:4000] if paragraphs else "DOCX preview is not available for this document."
+
+        return "Preview is not available for this file type."
+    except Exception:
+        return "Preview could not be generated for this file."
 
 
 def load_upload_metadata(notes_dir):
@@ -100,10 +151,21 @@ st.markdown(
 st.markdown(
     """
     <div class="notes_hero">
-        <div>
+        <div class="hero_copy">
             <span class="eyebrow">YOUR NOTEBOOK</span>
             <h1>Notes that feel alive.</h1>
-            <p>Keep your learning organized, polished, and share-ready.</p>
+            <p>Turn scattered study material into a calm, searchable space you can keep building.</p>
+            <div class="hero_meta">
+                <span><b>01</b> Capture</span>
+                <span><b>02</b> Curate</span>
+                <span><b>03</b> Revisit</span>
+            </div>
+        </div>
+        <div class="hero_signal" aria-hidden="true">
+            <span class="signal_label">NOTEBOOK SIGNAL</span>
+            <strong>Keep the thread.</strong>
+            <div class="signal_bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <small>Small uploads add up to big recall.</small>
         </div>
     </div>
     """,
@@ -111,7 +173,7 @@ st.markdown(
 )
 
 current_username = st.session_state.get("user_username", "member")
-MAX_NOTE_UPLOAD_BYTES = 10 * 1024 * 1024
+MAX_NOTE_UPLOAD_BYTES = 50 * 1024 * 1024
 if "custom_note_categories" not in st.session_state:
     st.session_state.custom_note_categories = []
 
@@ -143,28 +205,64 @@ with stats_cols[1]:
 with stats_cols[2]:
     st.markdown(f'<div class="small_stat"><span>Liked</span><strong>{user_social_summary["liked_count"]}</strong></div>', unsafe_allow_html=True)
 
+st.markdown(
+    """
+    <section class="notebook_pulse">
+        <div class="pulse_intro">
+            <span class="section_kicker">A BETTER STUDY LOOP</span>
+            <h2>Your notebook, in motion.</h2>
+            <p>Give every file a little context now, and future-you gets a much easier search.</p>
+        </div>
+        <div class="pulse_item">
+            <span class="pulse_icon">✦</span>
+            <div><strong>Name the moment</strong><small>Titles make revision feel findable.</small></div>
+        </div>
+        <div class="pulse_item">
+            <span class="pulse_icon">⌁</span>
+            <div><strong>Tag the thread</strong><small>Keep topics connected across classes.</small></div>
+        </div>
+        <div class="pulse_item">
+            <span class="pulse_icon">↗</span>
+            <div><strong>Share the spark</strong><small>Useful notes deserve an audience.</small></div>
+        </div>
+    </section>
+    """,
+    unsafe_allow_html=True,
+)
+
 col_upload, col_find = st.columns([1.1, 1.9])
 with col_upload:
     st.markdown('<div class="panel"><h3>Upload a note</h3>', unsafe_allow_html=True)
     note_title = st.text_input("Note title", placeholder="e.g. Cell biology - lecture 04", label_visibility="collapsed")
     note_tags = st.text_input("Study tags", placeholder="Tags: biology, exam, revision", label_visibility="collapsed")
-    note_category = st.selectbox("Note category", available_categories(), key="note_category")
+    note_categories = available_categories()
+    pending_category = st.session_state.pop("pending_note_category", None)
+    if pending_category in note_categories:
+        st.session_state.note_category = pending_category
+    elif st.session_state.get("note_category") not in note_categories:
+        st.session_state.note_category = note_categories[0]
+    note_category = st.selectbox("Note category", note_categories, key="note_category")
     with st.expander("Add a new category"):
         custom_category = st.text_input("New category", placeholder="e.g. Psychology", key="custom_note_category_input")
         if st.button("Add category", key="add_note_category", use_container_width=True):
             normalized_category = custom_category.strip()[:50]
             if normalized_category and normalized_category.casefold() not in {category.casefold() for category in available_categories()}:
                 st.session_state.custom_note_categories.append(normalized_category)
-                st.session_state.note_category = normalized_category
+                st.session_state.pending_note_category = normalized_category
                 st.rerun()
             elif not normalized_category:
                 st.warning("Enter a category name first.")
             else:
                 st.info("That category already exists.")
-    uploaded_file = st.file_uploader("Choose a file", type=["image"], key="image_uploader", label_visibility="collapsed")
+    uploaded_file = st.file_uploader(
+        "Choose a file",
+        type=["png", "jpg", "jpeg", "gif", "bmp", "webp", "pdf", "txt", "doc", "docx", "md", "csv", "json"],
+        key="image_uploader",
+        label_visibility="collapsed",
+    )
     if uploaded_file is not None:
         if uploaded_file.size > MAX_NOTE_UPLOAD_BYTES:
-            st.error("Notes must be 10 MB or smaller.")
+            st.error("Notes must be 50 MB or smaller.")
             st.stop()
         notes_dir = get_user_notes_directory()
         safe_filename = path.Path(uploaded_file.name).name
@@ -224,12 +322,12 @@ if public_notes_root.exists():
         if not owner_dir.is_dir():
             continue
         metadata = load_upload_metadata(owner_dir)
-        for image_file in owner_dir.iterdir():
-            if image_file.is_file() and image_file.name.lower() not in PROFILE_FILENAMES and image_file.suffix.lower() in IMAGE_SUFFIXES:
+        for note_file in owner_dir.iterdir():
+            if note_file_is_supported(note_file):
                 public_album.append({
-                    "path": image_file,
+                    "path": note_file,
                     "owner_username": owner_dir.name,
-                    "details": uploader_details(metadata, image_file.name, owner_dir.name),
+                    "details": uploader_details(metadata, note_file.name, owner_dir.name),
                 })
 
 if search_query:
@@ -252,43 +350,60 @@ if category_filter != "All categories":
 public_album.sort(key=lambda item: item["path"].stat().st_mtime, reverse=True)
 
 if public_album:
-    for index in range(0, len(public_album), 3):
-        cols = st.columns(3)
-        for offset, col in enumerate(cols):
-            item = public_album[index + offset] if index + offset < len(public_album) else None
-            if item is None:
-                continue
-            with col:
-                st.image(str(item["path"]), use_container_width=True)
-                st.markdown(uploader_markup(item["details"]), unsafe_allow_html=True)
-                meta = get_image_social_metadata(item["owner_username"], item["path"].name)
-                liked = st.session_state.get("user_username", "") in meta.get("liked_by", [])
-                saved = st.session_state.get("user_username", "") in meta.get("saved_by", [])
-                st.markdown(
-                    f"""
-                    <div class="social_row">
-                        <span>{len(meta.get('liked_by', []))} likes</span>
-                        <span>{len(meta.get('saved_by', []))} saves</span>
+    for item in public_album:
+        note_path = item["path"]
+        note_ext = note_path.suffix.lower()
+        note_preview = note_file_preview(note_path)
+        note_details = item["details"]
+        note_title = note_details.get("title") or note_path.stem.replace("_", " ")
+        note_file_size = note_path.stat().st_size
+        note_size_label = f"{note_file_size / (1024 * 1024):.1f} MB" if note_file_size >= 1024 * 1024 else f"{max(1, note_file_size // 1024)} KB"
+        with st.container():
+            st.markdown(
+                f'''
+                <div class="note_tile">
+                    <div class="tile_heading">
+                        <div class="tile_file_icon tile_file_{note_ext.lstrip('.')}" aria-hidden="true">{html.escape(note_file_type_label(note_path)[:4])}</div>
+                        <div class="tile_heading_copy">
+                            <strong>{html.escape(note_title[:72])}</strong>
+                            <span>{html.escape(note_path.name)} · {note_size_label}</span>
+                        </div>
+                        <span class="tile_more">•••</span>
                     </div>
-                    """,
-                    unsafe_allow_html=True,
+                    <div class="tile_meta_row">
+                        <span class="tile_category">{html.escape(note_details.get("category", "Uncategorized"))}</span>
+                        <span class="tile_format">{html.escape(note_file_type_label(note_path))}</span>
+                    </div>
+                    {uploader_markup(note_details)}
+                </div>
+                ''',
+                unsafe_allow_html=True,
+            )
+
+            with st.expander("View content", expanded=False):
+                if note_ext in IMAGE_SUFFIXES:
+                    st.image(str(note_path), width=320)
+                else:
+                    preview_text = note_preview or "Preview unavailable."
+                    st.code(preview_text[:6000], language="text")
+
+            download_data = note_path.read_bytes() if note_path.exists() else b""
+            download_col, delete_col = st.columns([1.4, 1])
+            with download_col:
+                st.download_button(
+                    label="Download",
+                    data=download_data,
+                    file_name=note_path.name,
+                    mime=note_file_download_mime(note_path.name),
+                    use_container_width=True,
                 )
-                like_col, save_col = st.columns(2)
-                with like_col:
-                    if st.button("Like" if not liked else "Liked", key=f"notes_like_{item['owner_username']}_{item['path'].name}", use_container_width=True):
-                        toggle_like(item["owner_username"], item["path"].name, st.session_state.get("user_username", ""))
-                        st.rerun()
-                with save_col:
-                    if st.button("Save" if not saved else "Saved", key=f"notes_save_{item['owner_username']}_{item['path'].name}", use_container_width=True):
-                        toggle_save(item["owner_username"], item["path"].name, st.session_state.get("user_username", ""))
-                        st.rerun()
-                if item["owner_username"] == st.session_state.get("user_username"):
+            if item["owner_username"] == st.session_state.get("user_username"):
+                with delete_col:
                     confirm_delete = st.checkbox("Confirm delete", key=f"confirm_delete_{item['owner_username']}_{item['path'].name}")
                     if st.button("Delete", key=f"delete_{item['owner_username']}_{item['path'].name}", use_container_width=True, disabled=not confirm_delete):
                         if delete_note_image(item["owner_username"], item["path"].name):
                             log_activity(current_username, "delete_note", f"{item['owner_username']}/{item['path'].name}")
                             st.rerun()
-                st.markdown('<div class="card_divider"></div>', unsafe_allow_html=True)
 else:
     st.info("No notes have been shared yet. Upload the first note to start your community collection.")
 
