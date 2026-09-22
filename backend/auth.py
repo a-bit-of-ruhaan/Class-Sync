@@ -216,6 +216,7 @@ def update_user_profile(email, name, bio="", pronouns="", location="", website="
 
 
 def require_auth():
+    st.session_state._auth_protected_page = True
     restore_session()
     if st.session_state.get("authenticated", False) and st.session_state.get("user_banned", False):
         log_out()
@@ -246,8 +247,15 @@ def restore_session():
     if st.session_state.get("authenticated", False):
         return True
 
-    token = _cookie_manager.get(_SESSION_COOKIE) or st.query_params.get("session")
+    allow_retry = st.session_state.get("_auth_protected_page", False)
+    cookie_values = _cookie_manager.get_all()
+    cookie_token = cookie_values.get(_SESSION_COOKIE) if isinstance(cookie_values, dict) else _cookie_manager.get(_SESSION_COOKIE)
+    token = cookie_token or st.query_params.get("session")
     if not token:
+        if allow_retry and not st.session_state.get("_auth_cookie_retry", False):
+            st.session_state._auth_cookie_retry = True
+            st.rerun()
+        st.session_state.pop("_auth_cookie_retry", None)
         return False
 
     connection = _connect()
@@ -280,6 +288,7 @@ def restore_session():
         return False
 
     log_in(session["email"], create_session=False)
+    st.session_state.pop("_auth_cookie_retry", None)
     return True
 
 
@@ -292,6 +301,7 @@ def log_in(email, name=None, username=None, create_session=True):
     st.session_state.user_name = name or (profile or {}).get("name", "Classync member")
     st.session_state.user_username = username or (profile or {}).get("username", "member")
     st.session_state.user_banned = bool((profile or {}).get("banned", 0))
+    st.session_state.pop("_auth_cookie_retry", None)
     if create_session:
         from backend.admin import log_activity
         log_activity(st.session_state.user_username, "login")
@@ -328,6 +338,7 @@ def log_out():
     st.session_state.pop("user_name", None)
     st.session_state.pop("user_username", None)
     st.session_state.pop("user_banned", None)
+    st.session_state.pop("_auth_cookie_retry", None)
 
 
 def get_user_notes_directory():

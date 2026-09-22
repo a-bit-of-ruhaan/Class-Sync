@@ -7,6 +7,7 @@ from typing import Any, Dict, Iterable, List, Tuple
 
 DEFAULT_NOTES_ROOT = Path("notes")
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"}
+NOTE_SUFFIXES = IMAGE_SUFFIXES | {".pdf", ".txt", ".doc", ".docx", ".md", ".csv", ".json"}
 PROFILE_FILENAMES = {"profile.png", "profile.jpg", "profile.jpeg", "profile.webp", "avatar.png", "avatar.jpg", "avatar.jpeg"}
 
 
@@ -173,7 +174,7 @@ def get_user_social_images(username: str, collection: str, notes_root: str | Pat
 
 def delete_note_image(owner_username: str, filename: str, notes_root: str | Path | None = None) -> bool:
     safe_filename = Path(filename).name
-    if safe_filename != filename or safe_filename.lower() in PROFILE_FILENAMES or Path(safe_filename).suffix.lower() not in IMAGE_SUFFIXES:
+    if safe_filename != filename or safe_filename.lower() in PROFILE_FILENAMES or Path(safe_filename).suffix.lower() not in NOTE_SUFFIXES:
         return False
 
     root = _notes_root(notes_root)

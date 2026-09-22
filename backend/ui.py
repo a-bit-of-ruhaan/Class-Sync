@@ -70,6 +70,7 @@ def render_sidebar(key_prefix: str) -> None:
         nav_items = (
             ("Home", "home", "home.py"),
             ("Notes", "edit_note", "pages/notes.py"),
+            ("Requests", "campaign", "pages/requests.py"),
             ("Summarize", "auto_awesome", "pages/summarizer.py"),
             ("Explore", "explore", "pages/explore.py"),
             ("Search", "search", "pages/search.py"),
