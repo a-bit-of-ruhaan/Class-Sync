@@ -2,9 +2,9 @@
 
 .stApp {
     background:
-        radial-gradient(circle at top left, rgba(103, 232, 249, 0.14), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(96, 165, 250, 0.12), transparent 22%),
-        linear-gradient(135deg, #0b1220 0%, #101827 100%);
+        radial-gradient(circle at 12% 8%, rgba(251, 146, 60, 0.12), transparent 25%),
+        radial-gradient(circle at 86% 34%, rgba(45, 212, 191, 0.15), transparent 28%),
+        linear-gradient(135deg, #0b1220 0%, #101827 58%, #111c2d 100%);
     color: #edf2ff;
     font-family: 'DM Sans', sans-serif;
 }
@@ -14,9 +14,14 @@ h1, h2, h3, .eyebrow {
 }
 
 .uploader_details {
-    margin-top: 0.8rem;
-    padding-top: 0.8rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: -2.2rem;
+    padding-top: 0;
+    padding-right: 6.4rem;
+    border-top: 0;
     color: rgba(240, 244, 255, 0.8);
     font-size: 0.76rem;
     line-height: 1.4;
@@ -60,16 +65,36 @@ h1, h2, h3, .eyebrow {
 
 .uploader_contact,
 .uploader_time {
-    margin-left: 2.5rem;
+    margin-left: 0;
 }
 
 .notes_hero {
-    padding: 2rem 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: 220px;
+    padding: 2.5rem 2rem 2rem;
     margin-bottom: 1.3rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 22px;
-    background: linear-gradient(135deg, rgba(25, 30, 43, 0.82), rgba(16, 17, 25, 0.8));
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 24px;
+    background: linear-gradient(112deg, rgba(21, 32, 49, 0.96), rgba(17, 25, 39, 0.78));
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    position: relative;
+}
+
+.notes_hero::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: 13%;
+    bottom: -170px;
+    border: 1px solid rgba(103, 232, 249, 0.28);
+    border-radius: 50%;
+    box-shadow: 0 0 0 28px rgba(103, 232, 249, 0.035), 0 0 0 56px rgba(103, 232, 249, 0.025);
+    pointer-events: none;
 }
 
 .eyebrow {
@@ -89,17 +114,159 @@ h1, h2, h3, .eyebrow {
 }
 
 .notes_hero p {
+    max-width: 520px;
     margin: 0;
     color: rgba(236, 241, 255, 0.8);
     font-size: 1.02rem;
+    line-height: 1.6;
+}
+
+.hero_meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.35rem;
+}
+
+.hero_meta span {
+    padding: 0.42rem 0.65rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 999px;
+    color: rgba(236, 241, 255, 0.72);
+    font-size: 0.72rem;
+}
+
+.hero_meta b {
+    margin-right: 0.28rem;
+    color: #67e8f9;
+}
+
+.hero_signal {
+    position: relative;
+    z-index: 1;
+    min-width: 215px;
+    padding: 1rem 1.05rem;
+    border-left: 1px solid rgba(103, 232, 249, 0.34);
+    background: linear-gradient(135deg, rgba(45, 212, 191, 0.1), rgba(96, 165, 250, 0.04));
+}
+
+.signal_label, .section_kicker {
+    color: #67e8f9;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.hero_signal strong {
+    display: block;
+    margin: 0.45rem 0 0.75rem;
+    color: #f5f8ff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+}
+
+.hero_signal small {
+    color: rgba(236, 241, 255, 0.62);
+    font-size: 0.7rem;
+}
+
+.signal_bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.24rem;
+    height: 32px;
+    margin-bottom: 0.65rem;
+}
+
+.signal_bars i {
+    display: block;
+    width: 0.38rem;
+    height: 40%;
+    border-radius: 999px;
+    background: #2dd4bf;
+}
+
+.signal_bars i:nth-child(2) { height: 65%; }
+.signal_bars i:nth-child(3) { height: 48%; background: #67e8f9; }
+.signal_bars i:nth-child(4) { height: 82%; background: #60a5fa; }
+.signal_bars i:nth-child(5) { height: 58%; }
+.signal_bars i:nth-child(6) { height: 92%; background: #fbbf24; }
+.signal_bars i:nth-child(7) { height: 72%; background: #fb923c; }
+
+.notebook_pulse {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(3, 1fr);
+    gap: 0.7rem;
+    align-items: stretch;
+    margin: 0.9rem 0 1.35rem;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.56);
+}
+
+.pulse_intro {
+    padding: 0.25rem 0.65rem 0.25rem 0.25rem;
+}
+
+.pulse_intro h2 {
+    margin: 0.35rem 0 0.2rem;
+    color: #f0f5ff;
+    font-size: 1.12rem;
+}
+
+.pulse_intro p {
+    margin: 0;
+    color: rgba(233, 239, 255, 0.62);
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+.pulse_item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 0.7rem;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.pulse_icon {
+    color: #fbbf24;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.pulse_item strong, .pulse_item small {
+    display: block;
+}
+
+.pulse_item strong {
+    color: #edf2ff;
+    font-size: 0.78rem;
+}
+
+.pulse_item small {
+    margin-top: 0.22rem;
+    color: rgba(233, 239, 255, 0.58);
+    font-size: 0.67rem;
+    line-height: 1.35;
 }
 
 .small_stat {
-    padding: 1rem 1.1rem;
+    position: relative;
+    padding: 1.1rem 1.15rem;
     border-radius: 18px;
     background: rgba(19, 20, 29, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16), inset 0 1px rgba(255, 255, 255, 0.04);
+    transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.small_stat:hover {
+    transform: translateY(-3px);
+    border-color: rgba(103, 232, 249, 0.34);
 }
 
 .small_stat span {
@@ -121,8 +288,8 @@ h1, h2, h3, .eyebrow {
     background: rgba(18, 20, 30, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
-    padding: 1.2rem 1rem 0.8rem;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+    padding: 1.25rem 1rem 0.9rem;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16), inset 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .panel h3 {
@@ -136,6 +303,12 @@ h1, h2, h3, .eyebrow {
     background: rgba(255, 255, 255, 0.02) !important;
     border: 1px dashed rgba(255, 174, 120, 0.6) !important;
     border-radius: 12px !important;
+    transition: background 180ms ease, border-color 180ms ease;
+}
+
+[data-testid="stFileUploader"]:hover {
+    background: rgba(45, 212, 191, 0.08) !important;
+    border-color: rgba(103, 232, 249, 0.9) !important;
 }
 
 .gallery_header {
@@ -150,12 +323,172 @@ h1, h2, h3, .eyebrow {
     letter-spacing: -0.04em;
 }
 
+.note_tile {
+    display: block;
+    min-height: 82px;
+    margin-bottom: 0.7rem;
+    height: 100%;
+    background: linear-gradient(110deg, rgba(18, 25, 39, 0.96), rgba(10, 15, 25, 0.92));
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 16px;
+    padding: 0.75rem 0.9rem;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18);
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.note_tile:hover {
+    transform: translateY(-4px);
+    border-color: rgba(103, 232, 249, 0.3);
+    box-shadow: 0 22px 42px rgba(0, 0, 0, 0.28);
+}
+
+.tile_heading {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.tile_file_icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #fb923c, #f97316);
+    color: #fff7ed;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    box-shadow: 0 8px 16px rgba(249, 115, 22, 0.18);
+}
+
+.tile_file_pdf { background: linear-gradient(145deg, #fb7185, #e11d48); }
+.tile_file_doc, .tile_file_docx { background: linear-gradient(145deg, #60a5fa, #2563eb); }
+.tile_file_txt, .tile_file_md { background: linear-gradient(145deg, #2dd4bf, #0f766e); }
+.tile_file_csv, .tile_file_json { background: linear-gradient(145deg, #a3e635, #4d7c0f); }
+
+.tile_heading_copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 0.16rem;
+}
+
+.tile_heading_copy strong {
+    overflow: hidden;
+    color: #f4f7ff;
+    font-size: 0.82rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tile_heading_copy span {
+    overflow: hidden;
+    color: rgba(226, 232, 240, 0.48);
+    font-size: 0.64rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tile_more {
+    margin-left: auto;
+    align-self: flex-start;
+    color: rgba(226, 232, 240, 0.45);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+}
+
+.tile_visual {
+    display: none;
+}
+
+.tile_visual [data-testid="stImage"] {
+    min-height: 180px;
+    background: #111827;
+}
+
+.tile_visual [data-testid="stImage"] img {
+    min-height: 180px;
+    object-fit: cover;
+}
+
+.tile_meta_row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin: 0.35rem 0 0 2.85rem;
+}
+
+.tile_category, .tile_format {
+    display: inline-flex;
+    max-width: 70%;
+    overflow: hidden;
+    padding: 0.24rem 0.46rem;
+    border-radius: 999px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.62rem;
+    font-weight: 700;
+}
+
+.tile_category {
+    background: rgba(45, 212, 191, 0.12);
+    color: #8fe1d3;
+}
+
+.tile_format {
+    background: rgba(148, 163, 184, 0.1);
+    color: rgba(226, 232, 240, 0.64);
+    letter-spacing: 0.06em;
+}
+
+.tile_document {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    min-height: 180px;
+    border-radius: 14px;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(96, 165, 250, 0.08));
+    border: 1px solid rgba(125, 211, 252, 0.2);
+}
+
+.tile_doc_type {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 0.32rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(125, 211, 252, 0.12);
+    border: 1px solid rgba(125, 211, 252, 0.24);
+    color: #a5f3fc;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tile_doc_preview {
+    color: rgba(233, 239, 255, 0.8);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 8;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+}
+
 div[data-testid="stColumn"] {
-    background: rgba(19, 20, 30, 0.85) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 18px !important;
-    padding: 0.8rem !important;
-    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.16) !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0.25rem !important;
+    box-shadow: none !important;
 }
 
 .card_divider {
@@ -222,26 +555,38 @@ button[kind="primary"] {
     .notes_hero {
         padding: 1.5rem 1rem;
     }
+
+    .hero_signal {
+        display: none;
+    }
+
+    .uploader_details {
+        justify-content: flex-start;
+        margin-top: 0.65rem;
+        padding-right: 0;
+    }
+
+    .notebook_pulse {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .pulse_intro {
+        grid-column: 1 / -1;
+    }
 }
 
-    .stApp {
-    /* Sets the path to your image file */
-    background-image: url('images/backg.png');
+@media (max-width: 560px) {
+    .notes_hero {
+        min-height: 0;
+    }
 
-    /* Prevents the image from repeating like a grid/tiles */
-    background-repeat: no-repeat;
+    .notebook_pulse {
+        grid-template-columns: 1fr;
+    }
 
-    /* Scales the image to cover the entire screen while maintaining proportions */
-    background-size: cover;
-
-    /* Centers the image horizontally and vertically */
-    background-position: center;
-
-    /* Optional: Keeps the background fixed in place while content scrolls */
-    background-attachment: fixed;
-
-    /* Fallback color in case the image fails to load */
-    background-color: #f4f4f4;
+    .pulse_intro {
+        grid-column: auto;
+    }
 }
 
   

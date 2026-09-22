@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+    --bg-primary: #f7f5ef;
+    --bg-surface: #fffdf8;
+    --bg-surface-soft: #f0eee7;
+    --text-main: #24313a;
+    --text-muted: #6d7778;
+    --accent-color: #c9dc72;
+    --accent-strong: #8ea83f;
+    --accent-mint: #b9e2d1;
+    --accent-ink: #334d42;
+    --border-color: #deded4;
+    --shadow-color: 36, 49, 58;
+    --shadow-sm: 0 4px 12px rgba(var(--shadow-color), 0.07);
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --transition-smooth: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.stApp {
+    min-height: 100vh;
+    background: radial-gradient(circle at 100% 0%, rgba(185, 226, 209, 0.34), transparent 28%),
+        radial-gradient(circle at 0% 100%, rgba(201, 220, 114, 0.18), transparent 30%),
+        var(--bg-primary) !important;
+    color: var(--text-main) !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+
+h1, h2, h3, h4, .eyebrow, button, [data-testid="stMarkdownContainer"] strong {
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+}
+
+h1, h2, h3, h4, p, label, [data-testid="stMarkdownContainer"] {
+    color: var(--text-main);
+}
+
+p, [data-testid="stCaptionContainer"], small {
+    color: var(--text-muted);
+}
+
+section[data-testid="stSidebar"] {
+    background: var(--bg-surface-soft) !important;
+    border-right: 1px solid var(--border-color) !important;
+}
+
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+.glass-panel {
+    background: rgba(255, 253, 248, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.76);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 30px rgba(var(--shadow-color), 0.08);
+    backdrop-filter: blur(18px) saturate(125%);
+    -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(var(--shadow-color), 0.07), 0 1px 2px rgba(var(--shadow-color), 0.05);
+}
+
+.shadow-md {
+    box-shadow: 0 14px 30px rgba(var(--shadow-color), 0.11), 0 3px 8px rgba(var(--shadow-color), 0.07);
+}
+
+.highlighter-marker {
+    display: inline;
+    padding: 0.05em 0.22em;
+    border-radius: 0.28em;
+    background: linear-gradient(104deg, rgba(201, 220, 114, 0.72) 0%, rgba(201, 220, 114, 0.52) 85%, rgba(201, 220, 114, 0.18) 100%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+.callout-box {
+    margin: 1rem 0;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-strong);
+    border-radius: var(--radius-sm);
+    background: linear-gradient(100deg, rgba(201, 220, 114, 0.18), rgba(185, 226, 209, 0.14));
+    box-shadow: var(--shadow-sm);
+}
+
+.callout-box strong {
+    color: var(--accent-ink);
+}
+
+.stButton > button,
+[data-testid="stFormSubmitButton"] > button {
+    min-height: 2.55rem;
+    border: 1px solid var(--accent-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    background: var(--accent-color) !important;
+    color: var(--accent-ink) !important;
+    font-weight: 700 !important;
+    transition: var(--transition-smooth) !important;
+}
+
+.stButton > button:hover,
+[data-testid="stFormSubmitButton"] > button:hover {
+    transform: translateY(-2px);
+    background: #d7e88c !important;
+    box-shadow: 0 8px 18px rgba(142, 168, 63, 0.2) !important;
+}
+
+input, textarea, [data-baseweb="select"] > div, [data-testid="stChatInput"] {
+    border-color: var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    background: var(--bg-surface) !important;
+    color: var(--text-main) !important;
+}
+
+[data-testid="stChatMessage"], .panel, .metric_card, .person_card, .file_tile, .game_panel, .admin_card, .snapshot_card {
+    border-color: var(--border-color) !important;
+    background: rgba(255, 253, 248, 0.82) !important;
+    box-shadow: 0 4px 15px rgba(var(--shadow-color), 0.06) !important;
+    transition: var(--transition-smooth);
+}
+
+[data-testid="stChatMessage"]:hover, .panel:hover, .metric_card:hover, .person_card:hover, .file_tile:hover, .game_panel:hover, .admin_card:hover, .snapshot_card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(var(--shadow-color), 0.1) !important;
+}
+
+[data-testid="stExpander"] {
+    border-color: var(--border-color) !important;
+    border-radius: var(--radius-sm) !important;
+    background: rgba(255, 253, 248, 0.74) !important;
+}
+
+[data-testid="stFileUploader"] {
+    border-color: var(--accent-strong) !important;
+    border-radius: var(--radius-md) !important;
+    background: rgba(201, 220, 114, 0.1) !important;
+}
+
+.sidebar_identity, .account_card {
+    border-color: var(--border-color) !important;
+    background: linear-gradient(135deg, rgba(185, 226, 209, 0.32), rgba(201, 220, 114, 0.2)) !important;
+}
+
+.sidebar_avatar, .account_avatar, .uploader_avatar, .mini_avatar {
+    background: var(--accent-mint) !important;
+    color: var(--accent-ink) !important;
+}
+
+.eyebrow, .section_kicker, .sidebar_label, .login_eyebrow {
+    color: var(--accent-strong) !important;
+}
+
+::selection {
+    background: var(--accent-color);
+    color: var(--accent-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .stApp [data-testid="stHorizontalBlock"] {
+        gap: 0.75rem;
+    }
+}
